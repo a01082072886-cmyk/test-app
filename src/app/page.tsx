@@ -1,65 +1,252 @@
-import Image from "next/image";
+"use client";
+
+import { useState, useEffect } from "react";
 
 export default function Home() {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <div style={{ minHeight: "100vh", backgroundColor: "#ffffff", color: "#000000", fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", width: "100%", margin: 0, padding: 0 }}>
+      {/* 기본 전역 스타일 및 구글 폰트(Inter) 불러오기 */}
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap');
+
+        * {
+          box-sizing: border-box;
+        }
+        body {
+          margin: 0;
+          padding: 0;
+          overflow-x: hidden;
+        }
+
+        /* 1번 섹션 헤더 트랜지션 효과 */
+        .sticky-header {
+          transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* 글래스 카드 기본 및 호버 스타일 */
+        .glass-card {
+          transition: transform 0.3s ease, background-color 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+        }
+
+        /* 평소 상태: 아이콘 숨김 */
+        .glass-card .icon-wrapper {
+          opacity: 0;
+          transform: scale(0.85);
+          transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+
+        /* 호버 상태: 어두운 글래스모피즘으로 변하며 아이콘 출현 */
+        .glass-card:hover {
+          transform: translateY(-6px);
+          background-color: rgba(0, 0, 0, 0.45) !important;
+          border-color: rgba(255, 255, 255, 0.3) !important;
+          box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2) !important;
+        }
+
+        .glass-card:hover .icon-wrapper {
+          opacity: 1;
+          transform: scale(1);
+        }
+      `}</style>
+
+      {/* 1번 섹션: 상단 고정 헤더 */}
+      <header 
+        className="sticky-header"
+        style={{ 
+          position: "fixed", 
+          top: 0, 
+          left: 0,
+          right: 0,
+          zIndex: 1000, 
+          display: "flex", 
+          justifyContent: "center", 
+          alignItems: "center", 
+          padding: "20px 0", 
+          width: "100%",
+          backgroundColor: isScrolled ? "rgba(255, 255, 255, 0.95)" : "transparent",
+          backdropFilter: isScrolled ? "blur(12px)" : "none",
+          WebkitBackdropFilter: isScrolled ? "blur(12px)" : "none",
+          borderBottom: isScrolled ? "1px solid #f3f4f6" : "1px solid transparent",
+        }}
+      >
+        <h1 style={{ 
+          margin: 0, 
+          fontFamily: "'Inter', sans-serif", 
+          fontSize: "32px", 
+          fontWeight: 600, 
+          letterSpacing: "-1px", 
+          color: isScrolled ? "#000000" : "#ffffff", 
+          textAlign: "center",
+          userSelect: "none",
+          transition: "color 0.4s ease"
+        }}>
+          A PINE Z
+        </h1>
+      </header>
+
+      {/* 2번 섹션: 로컬 비디오 루프 적용 */}
+      <section style={{ position: "relative", overflow: "hidden", height: "500px", width: "100%", backgroundColor: "#000000" }}>
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: "block",
+            filter: "brightness(0.95) contrast(1.05)",
+          }}
+        >
+          <source src="/forest.mp4" type="video/mp4" />
+          브라우저가 비디오 태그를 지원하지 않습니다.
+        </video>
+      </section>
+
+      {/* 3번 섹션: 쇼피파이에 COMING SOON 적용 */}
+      <section style={{ 
+        display: "grid", 
+        gridTemplateColumns: "repeat(4, 1fr)", 
+        width: "100%",
+        gap: "16px",
+        padding: "20px",
+        backgroundColor: "#ffffff"
+      }}>
+        {[
+          {
+            name: "Apple Music",
+            icon: (
+              <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
+                <circle cx="36" cy="36" r="30" stroke="rgba(255, 255, 255, 0.25)" strokeWidth="4" />
+                <circle cx="36" cy="36" r="30" stroke="#FFFFFF" strokeWidth="4" strokeDasharray="188" strokeDashoffset="40" strokeLinecap="round" transform="rotate(-90 36 36)" />
+                <path d="M33 43V27l12-2v13" stroke="#FFFFFF" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                <circle cx="30" cy="43" r="3" fill="#FFFFFF" />
+                <circle cx="42" cy="41" r="3" fill="#FFFFFF" />
+              </svg>
+            ),
+            url: "https://music.apple.com/kr/album/a-pine-z-single/6789061112",
+            isComingSoon: false,
+          },
+          {
+            name: "Shopify",
+            icon: (
+              <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
+                <circle cx="36" cy="36" r="30" stroke="rgba(255, 255, 255, 0.25)" strokeWidth="4" />
+                <circle cx="36" cy="36" r="30" stroke="#FFFFFF" strokeWidth="4" strokeDasharray="188" strokeDashoffset="25" strokeLinecap="round" transform="rotate(-90 36 36)" />
+                <path d="M30 26l-3 4v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V30l-3-4H30z" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <line x1="27" y1="30" x2="45" y2="30" stroke="#FFFFFF" strokeWidth="2" />
+                <path d="M40 34a4 4 0 0 1-8 0" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            ),
+            url: null,
+            isComingSoon: true,
+          },
+          {
+            name: "Instagram",
+            icon: (
+              <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
+                <circle cx="36" cy="36" r="30" stroke="rgba(255, 255, 255, 0.25)" strokeWidth="4" />
+                <circle cx="36" cy="36" r="30" stroke="#FFFFFF" strokeWidth="4" strokeDasharray="188" strokeDashoffset="55" strokeLinecap="round" transform="rotate(-90 36 36)" />
+                <rect x="27" y="27" width="18" height="18" rx="4.5" stroke="#FFFFFF" strokeWidth="2" />
+                <circle cx="36" cy="36" r="4" stroke="#FFFFFF" strokeWidth="2" />
+                <circle cx="41.5" cy="30.5" r="1" fill="#FFFFFF" />
+              </svg>
+            ),
+            url: "https://www.instagram.com/kimnamhyeun/",
+            isComingSoon: false,
+          },
+          {
+            name: "YouTube",
+            icon: (
+              <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
+                <circle cx="36" cy="36" r="30" stroke="rgba(255, 255, 255, 0.25)" strokeWidth="4" />
+                <circle cx="36" cy="36" r="30" stroke="#FFFFFF" strokeWidth="4" strokeDasharray="188" strokeDashoffset="15" strokeLinecap="round" transform="rotate(-90 36 36)" />
+                <path d="M45.5 31.2a2.3 2.3 0 0 0-1.6-1.6C42.5 29 36 29 36 29s-6.5 0-7.9.6a2.3 2.3 0 0 0-1.6 1.6A24 24 0 0 0 26 36a24 24 0 0 0 .5 4.8 2.3 2.3 0 0 0 1.6 1.6c1.4.6 7.9.6 7.9.6s6.5 0 7.9-.6a2.3 2.3 0 0 0 1.6-1.6A24 24 0 0 0 46 36a24 24 0 0 0-.5-4.8z" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <polygon points="34.5,39 39,36 34.5,33" fill="#FFFFFF" />
+              </svg>
+            ),
+            url: "https://www.youtube.com/@joshua_kimnamhyeon",
+            isComingSoon: false,
+          },
+        ].map((item) => {
+          const CardTag = item.url ? "a" : "div";
+          
+          return (
+            <CardTag
+              key={item.name}
+              {...(item.url ? { href: item.url, target: "_blank", rel: "noopener noreferrer" } : {})}
+              className="glass-card"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: "#f8f9fa", 
+                backdropFilter: "blur(16px)", 
+                WebkitBackdropFilter: "blur(16px)",
+                border: "1px solid #e5e7eb", 
+                borderRadius: "28px", 
+                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.03)", 
+                padding: "100px 16px",
+                textDecoration: "none",
+                cursor: item.url ? "pointer" : "default"
+              }}
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+              <div className="icon-wrapper" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <div>{item.icon}</div>
+                {item.isComingSoon && (
+                  <span style={{ 
+                    marginTop: "12px", 
+                    color: "#FFFFFF", 
+                    fontSize: "12px", 
+                    fontWeight: 600, 
+                    letterSpacing: "1.5px",
+                    fontFamily: "'Inter', sans-serif"
+                  }}>
+                    COMING SOON
+                  </span>
+                )}
+              </div>
+            </CardTag>
+          );
+        })}
+      </section>
+
+      {/* 4번 섹션: 하단 바 */}
+      <footer style={{ backgroundColor: "#ffffff", padding: "40px 20px 30px", textAlign: "center", fontSize: "0.875rem", color: "#000000", width: "100%" }}>
+        <div style={{ 
+          fontFamily: "'Inter', sans-serif", 
+          fontSize: "20px", 
+          fontWeight: 600, 
+          letterSpacing: "2px", 
+          marginBottom: "20px",
+          color: "#000000"
+        }}>
+          24/7
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div style={{ display: "flex", justifyContent: "center", gap: "28px", fontWeight: "600" }}>
+          <a href="#" style={{ color: "inherit", textDecoration: "none" }}>쿠키 정책</a>
+          <a href="/privacy" style={{ color: "inherit", textDecoration: "none" }}>개인 정보 처리 방침</a>
+          <a href="#" style={{ color: "inherit", textDecoration: "none" }}>접근성</a>
         </div>
-      </main>
+      </footer>
     </div>
   );
 }
