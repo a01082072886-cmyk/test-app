@@ -4,6 +4,9 @@ import { useState, useEffect } from "react";
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [email, setEmail] = useState("");
+  const [subscribed, setSubscribed] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,6 +20,21 @@ export default function Home() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+
+    // TODO: 실제로 데이터베이스(Supabase, Firebase, Mailchimp 등)나 백엔드 API로 email을 전송하는 로직을 여기에 작성합니다.
+    console.log("제출된 이메일:", email);
+
+    setSubscribed(true);
+    setTimeout(() => {
+      setEmail("");
+      setSubscribed(false);
+      setIsHovered(false);
+    }, 3000);
+  };
 
   return (
     <div style={{ minHeight: "100vh", backgroundColor: "#ffffff", color: "#000000", fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", width: "100%", margin: 0, padding: 0 }}>
@@ -36,6 +54,11 @@ export default function Home() {
         /* 1번 섹션 헤더 트랜지션 효과 */
         .sticky-header {
           transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* 호버 드롭다운 트랜지션 */
+        .dropdown-menu {
+          transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
         }
 
         /* 글래스 카드 기본 및 호버 스타일 */
@@ -64,9 +87,11 @@ export default function Home() {
         }
       `}</style>
 
-      {/* 1번 섹션: 상단 고정 헤더 */}
+      {/* 1번 섹션: 상단 고정 헤더 + 드롭다운 뉴스레터 */}
       <header 
         className="sticky-header"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         style={{ 
           position: "fixed", 
           top: 0, 
@@ -74,14 +99,14 @@ export default function Home() {
           right: 0,
           zIndex: 1000, 
           display: "flex", 
-          justifyContent: "center", 
+          flexDirection: "column",
           alignItems: "center", 
           padding: "20px 0", 
           width: "100%",
-          backgroundColor: isScrolled ? "rgba(255, 255, 255, 0.95)" : "transparent",
-          backdropFilter: isScrolled ? "blur(12px)" : "none",
-          WebkitBackdropFilter: isScrolled ? "blur(12px)" : "none",
-          borderBottom: isScrolled ? "1px solid #f3f4f6" : "1px solid transparent",
+          backgroundColor: isScrolled || isHovered ? "rgba(255, 255, 255, 0.95)" : "transparent",
+          backdropFilter: isScrolled || isHovered ? "blur(12px)" : "none",
+          WebkitBackdropFilter: isScrolled || isHovered ? "blur(12px)" : "none",
+          borderBottom: isScrolled || isHovered ? "1px solid #e5e7eb" : "1px solid transparent",
         }}
       >
         <h1 style={{ 
@@ -90,13 +115,80 @@ export default function Home() {
           fontSize: "32px", 
           fontWeight: 600, 
           letterSpacing: "-1px", 
-          color: isScrolled ? "#000000" : "#ffffff", 
+          color: isScrolled || isHovered ? "#000000" : "#ffffff", 
           textAlign: "center",
           userSelect: "none",
+          cursor: "pointer",
           transition: "color 0.4s ease"
         }}>
           A PINE Z
         </h1>
+
+        {/* 호버 시 나타나는 드롭다운 메뉴 (이메일 구독 입력창) */}
+        <div 
+          className="dropdown-menu"
+          style={{
+            marginTop: "16px",
+            width: "100%",
+            maxWidth: "420px",
+            padding: "0 20px",
+            opacity: isHovered ? 1 : 0,
+            visibility: isHovered ? "visible" : "hidden",
+            transform: isHovered ? "translateY(0)" : "translateY(-10px)",
+            pointerEvents: isHovered ? "auto" : "none",
+          }}
+        >
+          {subscribed ? (
+            <div style={{ 
+              textAlign: "center", 
+              padding: "10px", 
+              fontSize: "14px", 
+              fontWeight: 600, 
+              color: "#10B981" 
+            }}>
+              ✓ 성공적으로 구독되었습니다! 최신 소식을 보내드릴게요.
+            </div>
+          ) : (
+            <form onSubmit={handleSubscribe} style={{ display: "flex", gap: "8px", width: "100%" }}>
+              <input
+                type="email"
+                placeholder="최신 소식을 받을 이메일을 입력하세요"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                style={{
+                  flex: 1,
+                  padding: "10px 16px",
+                  fontSize: "14px",
+                  borderRadius: "20px",
+                  border: "1px solid #d1d5db",
+                  outline: "none",
+                  backgroundColor: "#ffffff",
+                  color: "#000000",
+                  fontFamily: "'Inter', sans-serif",
+                }}
+              />
+              <button
+                type="submit"
+                style={{
+                  padding: "10px 20px",
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  borderRadius: "20px",
+                  border: "none",
+                  backgroundColor: "#000000",
+                  color: "#ffffff",
+                  cursor: "pointer",
+                  transition: "background-color 0.2s ease",
+                  fontFamily: "'Inter', sans-serif",
+                  whiteSpace: "nowrap"
+                }}
+              >
+                구독
+              </button>
+            </form>
+          )}
+        </div>
       </header>
 
       {/* 2번 섹션: 로컬 비디오 루프 적용 */}
@@ -175,8 +267,7 @@ export default function Home() {
             name: "YouTube",
             icon: (
               <svg width="72" height="72" viewBox="0 0 72 72" fill="none">
-                <circle cx="36" cy="36" r="30" stroke="rgba(255, 255, 255, 0.25)" strokeWidth="4" />
-                <circle cx="36" cy="36" r="30" stroke="#FFFFFF" strokeWidth="4" strokeDasharray="188" strokeDashoffset="15" strokeLinecap="round" transform="rotate(-90 36 36)" />
+                <circle cx="36" cy="36" r="30" stroke="rgba(255, 255, 255, 0.25)" strokeWidth="4" strokeDasharray="188" strokeDashoffset="15" strokeLinecap="round" transform="rotate(-90 36 36)" />
                 <path d="M45.5 31.2a2.3 2.3 0 0 0-1.6-1.6C42.5 29 36 29 36 29s-6.5 0-7.9.6a2.3 2.3 0 0 0-1.6 1.6A24 24 0 0 0 26 36a24 24 0 0 0 .5 4.8 2.3 2.3 0 0 0 1.6 1.6c1.4.6 7.9.6 7.9.6s6.5 0 7.9-.6a2.3 2.3 0 0 0 1.6-1.6A24 24 0 0 0 46 36a24 24 0 0 0-.5-4.8z" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 <polygon points="34.5,39 39,36 34.5,33" fill="#FFFFFF" />
               </svg>
@@ -243,7 +334,7 @@ export default function Home() {
 
         <div style={{ display: "flex", justifyContent: "center", gap: "28px", fontWeight: "600" }}>
           <a href="#" style={{ color: "inherit", textDecoration: "none" }}>쿠키 정책</a>
-          <a href="/privacy" style={{ color: "inherit", textDecoration: "none" }}>개인 정보 처리 방침</a>
+          <a href="#" style={{ color: "inherit", textDecoration: "none" }}>개인 정보 처리 방침</a>
           <a href="#" style={{ color: "inherit", textDecoration: "none" }}>접근성</a>
         </div>
       </footer>
