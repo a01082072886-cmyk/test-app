@@ -21,20 +21,31 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
+  const handleSubscribe = async (e: React.FormEvent) => {
+  e.preventDefault();
+  if (!email) return;
 
-    // TODO: 실제로 데이터베이스(Supabase, Firebase, Mailchimp 등)나 백엔드 API로 email을 전송하는 로직을 여기에 작성합니다.
-    console.log("제출된 이메일:", email);
+  try {
+    const response = await fetch('/api/send', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    });
 
-    setSubscribed(true);
-    setTimeout(() => {
-      setEmail("");
-      setSubscribed(false);
-      setIsHovered(false);
-    }, 3000);
-  };
+    if (response.ok) {
+      setSubscribed(true);
+      setTimeout(() => {
+        setEmail("");
+        setSubscribed(false);
+        setIsHovered(false);
+      }, 3000);
+    }
+  } catch (error) {
+    console.error("메일 전송 실패:", error);
+  }
+};
 
   return (
     <div style={{ minHeight: "100vh", backgroundColor: "#ffffff", color: "#000000", fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", width: "100%", margin: 0, padding: 0 }}>
