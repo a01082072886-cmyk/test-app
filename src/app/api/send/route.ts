@@ -1,65 +1,59 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { GoogleSpreadsheet } from 'google-spreadsheet';
+import { JWT } from 'google-auth-library';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-
-// 관리자(나)의 이메일 주소
-const ADMIN_EMAIL = 'joshuakim352@icloud.com';
 
 export async function POST(request: Request) {
   try {
     const { email } = await request.json();
 
-    if (!email) {
-      return NextResponse.json(
-        { error: '이메일 주소가 필요합니다.' },
-        { status: 400 }
-      );
+    if (!email || !email.includes('@')) {
+      return NextResponse.json({ error: '올바른 이메일 주소를 입력해 주세요.' }, { status: 400 });
     }
 
-    // 1. 구독자에게 환영 메일 전송
-    const userEmailResult = await resend.emails.send({
+    // 1. 구글 시트 연동 및 데이터 저장
+    const serviceAccountAuth = new JWT({
+      email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+      key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    });
+
+    const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID!, serviceAccountAuth);
+    await doc.loadInfo();
+
+    // 'Subscribers' 탭 선택
+    const sheet = doc.sheetsByTitle['Subscribers'];
+    
+    // 이메일과 현재 일시 저장
+    await sheet.addRow({
+      Email: email,
+      Date: new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }),
+    });
+
+    // 2. Resend 수신 확인 메일 발송 (법적 수신거부 안내 포함)
+    await resend.emails.send({
       from: 'newsletter@apinez.com',
       to: email,
-      subject: '구독해 주셔서 감사합니다!',
+      subject: '[apinez] 뉴스레터 구독 신청이 완료되었습니다.',
       html: `
-        <div style="font-family: Arial, sans-serif; padding: 20px;">
-          <h2>뉴스레터 구독 신청이 완료되었습니다.</h2>
-          <p>새로운 소식과 업데이트 사항을 가장 먼저 알려드릴게요!</p>
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <h2>뉴스레터 구독 신청이 완료되었습니다!</h2>
+          <p>새로운 소식과 업데이트 사항을 가장 먼저 알려드릴게요.</p>
+          <hr style="margin-top: 30px; border: 0; border-top: 1px solid #eee;" />
+          <footer style="font-size: 12px; color: #888; margin-top: 20px;">
+            <p>본 메일은 수신 동의를 바탕으로 발송된 발신 전용 메일입니다.</p>
+            <p>수신을 원치 않으시면 <a href="https://apinez.com/unsubscribe?email=${encodeURIComponent(email)}" style="color: #666;">[수신 거부 / Unsubscribe]</a>를 클릭해 주세요.</p>
+            <p>© apinez. All rights reserved.</p>
+          </footer>
         </div>
       `,
     });
 
-    // 2. 나(관리자)에게 신규 구독 알림 메일 전송
-    await resend.emails.send({
-      from: 'onboarding@resend.dev',
-      to: ADMIN_EMAIL,
-      subject: `[신규 구독자 알림] ${email}님이 구독하셨습니다.`,
-      html: `
-        <div style="font-family: Arial, sans-serif; padding: 20px;">
-          <h3>🎉 새로운 구독자가 등록되었습니다!</h3>
-          <p><strong>구독자 이메일:</strong> ${email}</p>
-          <p><strong>신청 시간:</strong> ${new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })}</p>
-        </div>
-      `,
-    });
-
-    // 3. Resend Contacts(구독자 목록)에 자동으로 저장
-    try {
-      await resend.contacts.create({
-        email: email,
-        unsubscribed: false,
-      });
-    } catch (contactError) {
-      console.log('Contacts 등록 과정 중 참고 사항:', contactError);
-    }
-
-    return NextResponse.json({ success: true, data: userEmailResult });
+    return NextResponse.json({ success: true, message: '구독 신청이 완료되었습니다.' });
   } catch (error) {
-    console.error('Email send error:', error);
-    return NextResponse.json(
-      { error: '이메일 전송 중 오류가 발생했습니다.' },
-      { status: 500 }
-    );
+    console.error('구독 처리 오류:', error);
+    return NextResponse.json({ error: '구독 처리 중 오류가 발생했습니다.' }, { status: 500 });
   }
 }
