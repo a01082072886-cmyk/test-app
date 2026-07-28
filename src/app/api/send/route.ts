@@ -19,7 +19,7 @@ export async function POST(request: Request) {
 
     // 1. 구독자에게 환영 메일 전송
     const userEmailResult = await resend.emails.send({
-      from: 'onboarding@resend.dev',
+      from: 'newsletter@apinez.com',
       to: email,
       subject: '구독해 주셔서 감사합니다!',
       html: `
