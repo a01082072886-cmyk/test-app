@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [isFocused, setIsFocused] = useState(false); // 입력창 포커스 상태 추가
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
@@ -22,30 +23,34 @@ export default function Home() {
   }, []);
 
   const handleSubscribe = async (e: React.FormEvent) => {
-  e.preventDefault();
-  if (!email) return;
+    e.preventDefault();
+    if (!email) return;
 
-  try {
-    const response = await fetch('/api/send', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email }),
-    });
+    try {
+      const response = await fetch('/api/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
 
-    if (response.ok) {
-      setSubscribed(true);
-      setTimeout(() => {
-        setEmail("");
-        setSubscribed(false);
-        setIsHovered(false);
-      }, 3000);
+      if (response.ok) {
+        setSubscribed(true);
+        setTimeout(() => {
+          setEmail("");
+          setSubscribed(false);
+          setIsHovered(false);
+          setIsFocused(false);
+        }, 3000);
+      }
+    } catch (error) {
+      console.error("메일 전송 실패:", error);
     }
-  } catch (error) {
-    console.error("메일 전송 실패:", error);
-  }
-};
+  };
+
+  // 메뉴가 보여야 하는 조건: 호버 중이거나, 입력창에 포커스가 맞춰져 있을 때
+  const isOpen = isHovered || isFocused;
 
   return (
     <div style={{ minHeight: "100vh", backgroundColor: "#ffffff", color: "#000000", fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", width: "100%", margin: 0, padding: 0 }}>
@@ -114,24 +119,27 @@ export default function Home() {
           alignItems: "center", 
           padding: "20px 0", 
           width: "100%",
-          backgroundColor: isScrolled || isHovered ? "rgba(255, 255, 255, 0.95)" : "transparent",
-          backdropFilter: isScrolled || isHovered ? "blur(12px)" : "none",
-          WebkitBackdropFilter: isScrolled || isHovered ? "blur(12px)" : "none",
-          borderBottom: isScrolled || isHovered ? "1px solid #e5e7eb" : "1px solid transparent",
+          backgroundColor: isScrolled || isOpen ? "rgba(255, 255, 255, 0.95)" : "transparent",
+          backdropFilter: isScrolled || isOpen ? "blur(12px)" : "none",
+          WebkitBackdropFilter: isScrolled || isOpen ? "blur(12px)" : "none",
+          borderBottom: isScrolled || isOpen ? "1px solid #e5e7eb" : "1px solid transparent",
         }}
       >
-        <h1 style={{ 
-          margin: 0, 
-          fontFamily: "'Inter', sans-serif", 
-          fontSize: "32px", 
-          fontWeight: 600, 
-          letterSpacing: "-1px", 
-          color: isScrolled || isHovered ? "#000000" : "#ffffff", 
-          textAlign: "center",
-          userSelect: "none",
-          cursor: "pointer",
-          transition: "color 0.4s ease"
-        }}>
+        <h1 
+          onClick={() => setIsHovered(!isHovered)}
+          style={{ 
+            margin: 0, 
+            fontFamily: "'Inter', sans-serif", 
+            fontSize: "32px", 
+            fontWeight: 600, 
+            letterSpacing: "-1px", 
+            color: isScrolled || isOpen ? "#000000" : "#ffffff", 
+            textAlign: "center",
+            userSelect: "none",
+            cursor: "pointer",
+            transition: "color 0.4s ease"
+          }}
+        >
           A PINE Z
         </h1>
 
@@ -143,10 +151,10 @@ export default function Home() {
             width: "100%",
             maxWidth: "420px",
             padding: "0 20px",
-            opacity: isHovered ? 1 : 0,
-            visibility: isHovered ? "visible" : "hidden",
-            transform: isHovered ? "translateY(0)" : "translateY(-10px)",
-            pointerEvents: isHovered ? "auto" : "none",
+            opacity: isOpen ? 1 : 0,
+            visibility: isOpen ? "visible" : "hidden",
+            transform: isOpen ? "translateY(0)" : "translateY(-10px)",
+            pointerEvents: isOpen ? "auto" : "none",
           }}
         >
           {subscribed ? (
@@ -166,6 +174,8 @@ export default function Home() {
                 placeholder="최신 소식을 받을 이메일을 입력하세요"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
                 required
                 style={{
                   flex: 1,
@@ -350,5 +360,5 @@ export default function Home() {
         </div>
       </footer>
     </div>
-  );
+  ); 
 }
