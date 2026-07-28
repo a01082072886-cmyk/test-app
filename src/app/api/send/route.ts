@@ -13,12 +13,17 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: '올바른 이메일 주소를 입력해 주세요.' }, { status: 400 });
     }
 
-    // 1. 구글 시트 연동 및 데이터 저장
-    const serviceAccountAuth = new JWT({
-      email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-      key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-    });
+   // 1. 구글 시트 연동 및 데이터 저장
+const rawKey = process.env.GOOGLE_PRIVATE_KEY || '';
+const formattedKey = rawKey
+  .replace(/^"(.*)"$/, '$1')      // 앞뒤 큰따옴표가 붙어있다면 제거
+  .replace(/\\n/g, '\n');         // \n 글자를 진짜 줄바꿈으로 변환
+
+const serviceAccountAuth = new JWT({
+  email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+  key: formattedKey,              // 💡 변환된 formattedKey를 사용!
+  scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+});
 
     const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID!, serviceAccountAuth);
     await doc.loadInfo();
