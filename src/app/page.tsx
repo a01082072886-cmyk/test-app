@@ -133,12 +133,15 @@ export default function Home() {
         <h1 
           onClick={() => setIsHovered(!isHovered)}
           style={{ 
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "10px",
             margin: 0, 
             fontFamily: "'Inter', sans-serif", 
             fontSize: "32px", 
             fontWeight: 600, 
             letterSpacing: "-1px", 
-            // 👈 핵심: 스크롤을 내렸거나(isScrolled) 메뉴가 열렸으면(isOpen) 검은색, 맨 위에 있을 때는 흰색!
             color: isScrolled || isOpen ? "#000000" : "#ffffff", 
             textAlign: "center",
             userSelect: "none",
@@ -146,6 +149,15 @@ export default function Home() {
             transition: "color 0.4s ease"
           }}
         >
+          {/* 나이테 로고 SVG */}
+          <svg width="34" height="34" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ transition: "stroke 0.4s ease" }}>
+            <path 
+              d="M 50 50 m 0 -35 a 35 35 0 0 1 35 35 a 35 35 0 0 1 -35 35 a 35 35 0 0 1 -35 -35 a 35 35 0 0 1 30 -34 a 28 28 0 0 1 25 28 a 28 28 0 0 1 -28 28 a 28 28 0 0 1 -28 -28 a 28 28 0 0 1 22 -22 a 20 20 0 0 1 18 20 a 20 20 0 0 1 -20 20 a 20 20 0 0 1 -20 -20 a 20 20 0 0 1 15 -14 a 12 12 0 0 1 11 12 a 12 12 0 0 1 -12 12 a 12 12 0 0 1 -12 -12 a 12 12 0 0 1 8 -8 a 5 5 0 0 1 4 5" 
+              stroke="currentColor" 
+              strokeWidth="7" 
+              strokeLinecap="round" 
+            />
+          </svg>
           A PINE Z
         </h1>
 
