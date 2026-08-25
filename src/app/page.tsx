@@ -96,25 +96,29 @@ export default function Home() {
         }
       `}</style>
 
-      {/*  상단 고정 바 (솔방울 모양 로고 적용) */}
+      {/*  상단 고정 바 (나루토 나뭇잎 마을 마크 로고 적용) */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1001, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: "block" }}>
-          {/* 솔방울 외곽 테두리 및 겹겹이 층을 이루는 비늘 패턴 */}
+          {/* 소용돌이 본체 (중앙에서 동글게 말려나오는 형태) */}
           <path 
-            d="M 50 15 
-               C 35 22, 28 35, 30 50 
-               C 32 68, 42 78, 50 85 
-               C 58 78, 68 68, 70 50 
-               C 72 35, 65 22, 50 15 Z" 
+            d="M 55 42 
+               C 42 35, 32 45, 38 55 
+               C 44 65, 60 58, 62 45 
+               C 64 30, 42 22, 30 38 
+               C 22 50, 28 72, 48 75" 
             stroke="#000000" 
-            strokeWidth="5" 
+            strokeWidth="5.5" 
             strokeLinecap="round" 
             strokeLinejoin="round"
           />
-          {/* 솔방울 내부 결 (비늘 레이어들) */}
-          <path d="M 38 35 Q 50 42 62 35" stroke="#000000" strokeWidth="4.5" strokeLinecap="round" fill="none" />
-          <path d="M 33 50 Q 50 58 67 50" stroke="#000000" strokeWidth="4.5" strokeLinecap="round" fill="none" />
-          <path d="M 38 65 Q 50 72 62 65" stroke="#000000" strokeWidth="4.5" strokeLinecap="round" fill="none" />
+          {/* 오른쪽으로 툭 뻗어 나가는 나뭇잎의 꼬리(줄기) 부분 */}
+          <path 
+            d="M 52 65 
+               L 72 75" 
+            stroke="#000000" 
+            strokeWidth="5.5" 
+            strokeLinecap="round" 
+          />
         </svg>
       </div>
       
