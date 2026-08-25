@@ -96,7 +96,7 @@ export default function Home() {
         }
       `}</style>
 
-      {/*  상단 고정 바 (바깥 원과 겹치지 않고 촘촘하게 감기는 로고) */}
+      {/*  상단 고정 바 (끝부분을 반시계 방향 1시 방향으로 길게 연장한 로고) */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1001, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: "block" }}>
           <path 
@@ -107,7 +107,8 @@ export default function Home() {
                C 38 62, 55 68, 64 56 
                C 72 46, 68 30, 55 24 
                C 36 16, 20 32, 22 52 
-               C 24 72, 50 82, 70 74" 
+               C 24 74, 52 84, 76 68 
+               C 82 64, 78 45, 68 32" 
             stroke="#000000" 
             strokeWidth="5.5" 
             strokeLinecap="round" 
