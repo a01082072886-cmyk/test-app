@@ -96,18 +96,18 @@ export default function Home() {
         }
       `}</style>
 
-      {/*  상단 고정 바 (촘촘하고 풍성하게 말린 클릭 유도형 로고) */}
+      {/*  상단 고정 바 (바깥 원과 겹치지 않고 촘촘하게 감기는 로고) */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1001, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: "block" }}>
           <path 
-            d="M 52 48 
-               C 46 44, 44 52, 50 54 
-               C 58 56, 62 44, 56 36 
-               C 48 24, 30 32, 32 50 
-               C 34 68, 56 74, 68 62 
-               C 76 54, 76 38, 64 30 
-               C 50 20, 24 38, 28 62 
-               C 32 82, 62 86, 78 72" 
+            d="M 50 44 
+               C 45 40, 43 47, 48 50 
+               C 54 53, 58 44, 54 38 
+               C 48 28, 34 33, 36 48 
+               C 38 62, 55 68, 64 56 
+               C 72 46, 68 30, 55 24 
+               C 36 16, 20 32, 22 52 
+               C 24 72, 50 82, 70 74" 
             stroke="#000000" 
             strokeWidth="5.5" 
             strokeLinecap="round" 
