@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: "A PINE Z",
   description: "A PINE Z official website",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/logo.svg",
   },
 };
 
