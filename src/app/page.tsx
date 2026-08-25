@@ -96,18 +96,18 @@ export default function Home() {
         }
       `}</style>
 
-      {/*  상단 고정 바 (오리지널 나뭇잎 심볼 로고 적용) */}
+      {/*  상단 고정 바 (촘촘하고 풍성하게 말린 클릭 유도형 로고) */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1001, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: "block" }}>
           <path 
-            d="M 30 68 
-               L 18 52 
-               L 30 36 
-               C 50 18, 78 35, 72 58 
-               C 68 74, 45 72, 42 56 
-               C 40 42, 56 38, 55 50 
-               C 54 55, 62 60, 68 62
-               L 82 72" 
+            d="M 52 48 
+               C 46 44, 44 52, 50 54 
+               C 58 56, 62 44, 56 36 
+               C 48 24, 30 32, 32 50 
+               C 34 68, 56 74, 68 62 
+               C 76 54, 76 38, 64 30 
+               C 50 20, 24 38, 28 62 
+               C 32 82, 62 86, 78 72" 
             stroke="#000000" 
             strokeWidth="5.5" 
             strokeLinecap="round" 
