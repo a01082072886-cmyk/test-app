@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "A PINE Z",
   description: "A PINE Z official website",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
