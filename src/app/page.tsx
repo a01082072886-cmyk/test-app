@@ -138,7 +138,7 @@ export default function Home() {
             fontSize: "32px", 
             fontWeight: 600, 
             letterSpacing: "-1px", 
-            color: isScrolled || isOpen ? "#000000" : "#ffffff", 
+            color: "#000000", 
             textAlign: "center",
             userSelect: "none",
             cursor: "pointer",
