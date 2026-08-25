@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -8,6 +8,17 @@ export default function Home() {
   const [isFocused, setIsFocused] = useState(false);
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+
+  // 슬라이더 상태 관리
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const sliderRef = useRef<HTMLDivElement>(null);
+
+  // 슬라이더에 들어갈 아이템들 (0번: 비디오, 1번: 첫 번째 아트웍, 2번: 두 번째 아트웍)
+  const slides = [
+    { type: "video", src: "/forest.mp4" },
+    { type: "image", src: "/artwork1.jpg" },
+    { type: "image", src: "/artwork2.jpg" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,6 +57,17 @@ export default function Home() {
       }
     } catch (error) {
       console.error("메일 전송 실패:", error);
+    }
+  };
+
+  // 슬라이드 이동 함수
+  const goToSlide = (index: number) => {
+    if (index < 0) {
+      setCurrentIndex(slides.length - 1);
+    } else if (index >= slides.length) {
+      setCurrentIndex(0);
+    } else {
+      setCurrentIndex(index);
     }
   };
 
@@ -93,6 +115,15 @@ export default function Home() {
         .glass-card:hover .icon-wrapper {
           opacity: 1;
           transform: scale(1);
+        }
+
+        /* 슬라이더 화살표 스타일 */
+        .slider-arrow {
+          opacity: 0;
+          transition: opacity 0.3s ease, background-color 0.2s ease;
+        }
+        .slider-container:hover .slider-arrow {
+          opacity: 1;
         }
       `}</style>
 
@@ -220,24 +251,129 @@ export default function Home() {
         </div>
       </header>
 
-      {/* 2번 섹션: 로컬 비디오 루프 */}
-      <section style={{ position: "relative", overflow: "hidden", height: "550px", width: "100%", backgroundColor: "#000000", marginTop: "0" }}>
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
+      {/* 2번 섹션: 비디오 및 아트웍 이미지 슬라이더 섹션 */}
+      <section 
+        className="slider-container"
+        style={{ position: "relative", overflow: "hidden", height: "550px", width: "100%", backgroundColor: "#000000", marginTop: "0" }}
+      >
+        {/* 슬라이드 트랙 */}
+        <div 
           style={{
-            width: "100%",
+            display: "flex",
+            width: `${slides.length * 100}%`,
             height: "100%",
-            objectFit: "cover",
-            display: "block",
-            filter: "brightness(0.95) contrast(1.05)",
+            transform: `translateX(-${currentIndex * (100 / slides.length)}%)`,
+            transition: "transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)",
           }}
         >
-          <source src="/forest.mp4" type="video/mp4" />
-          브라우저가 비디오 태그를 지원하지 않습니다.
-        </video>
+          {slides.map((slide, index) => (
+            <div key={index} style={{ width: `${100 / slides.length}%`, height: "100%", flexShrink: 0, position: "relative" }}>
+              {slide.type === "video" ? (
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    display: "block",
+                    filter: "brightness(0.95) contrast(1.05)",
+                  }}
+                >
+                  <source src={slide.src} type="video/mp4" />
+                  브라우저가 비디오 태그를 지원하지 않습니다.
+                </video>
+              ) : (
+                <img
+                  src={slide.src}
+                  alt={`Artwork ${index}`}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    display: "block",
+                  }}
+                />
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* 좌측 화살표 버튼 */}
+        <button
+          className="slider-arrow"
+          onClick={() => goToSlide(currentIndex - 1)}
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "24px",
+            transform: "translateY(-50%)",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            color: "#ffffff",
+            border: "none",
+            borderRadius: "50%",
+            width: "48px",
+            height: "48px",
+            fontSize: "20px",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 10,
+            backdropFilter: "blur(4px)",
+          }}
+        >
+          ❮
+        </button>
+
+        {/* 우측 화살표 버튼 */}
+        <button
+          className="slider-arrow"
+          onClick={() => goToSlide(currentIndex + 1)}
+          style={{
+            position: "absolute",
+            top: "50%",
+            right: "24px",
+            transform: "translateY(-50%)",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            color: "#ffffff",
+            border: "none",
+            borderRadius: "50%",
+            width: "48px",
+            height: "48px",
+            fontSize: "20px",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 10,
+            backdropFilter: "blur(4px)",
+          }}
+        >
+          ❯
+        </button>
+
+        {/* 하단 인디케이터 (점) */}
+        <div style={{ position: "absolute", bottom: "20px", left: "50%", transform: "translateX(-50%)", display: "flex", gap: "8px", zIndex: 10 }}>
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              style={{
+                width: currentIndex === index ? "24px" : "8px",
+                height: "8px",
+                borderRadius: "4px",
+                backgroundColor: currentIndex === index ? "#ffffff" : "rgba(255, 255, 255, 0.5)",
+                border: "none",
+                cursor: "pointer",
+                transition: "width 0.3s ease, background-color 0.3s ease",
+                padding: 0,
+              }}
+            />
+          ))}
+        </div>
       </section>
 
       {/* 3번 섹션 */}
