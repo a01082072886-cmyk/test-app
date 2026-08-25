@@ -105,68 +105,77 @@ export default function Home() {
         }
       `}</style>
 
-{/*  상단 고정 바 */}
-<div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1001, borderBottom: "1px solid #e5e7eb" }}></div>
+{/*  상단 고정 바 (여기에 검은색 나이테 로고 배치) */}
+      <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1001, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        {/* 상단바 중앙에 고정된 검은색 나이테 로고 */}
+        <svg width="24" height="24" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path 
+            d="M 50 50 m 0 -35 a 35 35 0 0 1 35 35 a 35 35 0 0 1 -35 35 a 35 35 0 0 1 -35 -35 a 35 35 0 0 1 30 -34 a 28 28 0 0 1 25 28 a 28 28 0 0 1 -28 28 a 28 28 0 0 1 -28 -28 a 28 28 0 0 1 22 -22 a 20 20 0 0 1 18 20 a 20 20 0 0 1 -20 20 a 20 20 0 0 1 -20 -20 a 20 20 0 0 1 15 -14 a 12 12 0 0 1 11 12 a 12 12 0 0 1 -12 12 a 12 12 0 0 1 -12 -12 a 12 12 0 0 1 8 -8 a 5 5 0 0 1 4 5" 
+            stroke="#000000" 
+            strokeWidth="8" 
+            strokeLinecap="round" 
+          />
+        </svg>
+      </div>
       
-      {/* 1번 섹션: 상단 고정 헤더 + 드롭다운 뉴스레터 (위치 및 구조 수정) */}
+      {/* 1번 섹션: 비디오 위로 뜨는 A PINE Z 로고 + 드롭다운 뉴스레터 */}
       <header 
         className="sticky-header"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         style={{ 
           position: "fixed", 
-          top: "0", // 헤더가 화면 맨 위에 딱 붙도록 수정
+          top: "48px", // 상단바 바로 아래에 위치
           left: 0,
           right: 0,
           zIndex: 1000, 
           display: "flex", 
           flexDirection: "column",
           alignItems: "center", 
-          // 상단 여백을 줄여 로고가 바에 딱 붙도록 함
-          paddingTop: "10px",
-          paddingBottom: "10px", 
+          padding: "20px 0", 
           width: "100%",
-          // 맨 위에 고정되었으므로 항상 흰색 배경과 테두리를 유지
-          backgroundColor: "rgba(255, 255, 255, 1)", 
-          backdropFilter: "none",
-          WebkitBackdropFilter: "none",
-          borderBottom: "1px solid #e5e7eb",
+          backgroundColor: isScrolled || isOpen ? "rgba(255, 255, 255, 0.95)" : "transparent",
+          backdropFilter: isScrolled || isOpen ? "blur(12px)" : "none",
+          WebkitBackdropFilter: isScrolled || isOpen ? "blur(12px)" : "none",
+          borderBottom: isScrolled || isOpen ? "1px solid #e5e7eb" : "1px solid transparent",
         }}
       >
-        {/* 🌲 [이동 완료] 나이테 로고 SVG를 헤더 안쪽 맨 위로 이동시켰습니다! */}
-        <svg width="30" height="30" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ color: "#000000", marginBottom: "4px" }}>
-          <path 
-            d="M 50 50 m 0 -35 a 35 35 0 0 1 35 35 a 35 35 0 0 1 -35 35 a 35 35 0 0 1 -35 -35 a 35 35 0 0 1 30 -34 a 28 28 0 0 1 25 28 a 28 28 0 0 1 -28 28 a 28 28 0 0 1 -28 -28 a 28 28 0 0 1 22 -22 a 20 20 0 0 1 18 20 a 20 20 0 0 1 -20 20 a 20 20 0 0 1 -20 -20 a 20 20 0 0 1 15 -14 a 12 12 0 0 1 11 12 a 12 12 0 0 1 -12 12 a 12 12 0 0 1 -12 -12 a 12 12 0 0 1 8 -8 a 5 5 0 0 1 4 5" 
-            stroke="currentColor" 
-            strokeWidth="7" 
-            strokeLinecap="round" 
-          />
-        </svg>
-
-        {/* 📝 [수정 완료] 'A PINE Z' 글자는 로고 아래에 깔끔하게 배치됩니다. */}
         <h1 
           onClick={() => setIsHovered(!isHovered)}
           style={{ 
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "8px",
             margin: 0, 
             fontFamily: "'Inter', sans-serif", 
-            fontSize: "24px", // 글자 크기를 살짝 줄여 상단바에 맞춤
+            fontSize: "32px", 
             fontWeight: 600, 
             letterSpacing: "-1px", 
-            color: "#000000", // 상단바 배경이 흰색이므로 글자는 항상 검은색
+            color: isScrolled || isOpen ? "#000000" : "#ffffff", 
             textAlign: "center",
             userSelect: "none",
             cursor: "pointer",
             transition: "color 0.4s ease"
           }}
         >
+          {/* 비디오 위에서 스크롤에 따라 색상이 바뀌는 나이테 로고 */}
+          <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ transition: "stroke 0.4s ease" }}>
+            <path 
+              d="M 50 50 m 0 -35 a 35 35 0 0 1 35 35 a 35 35 0 0 1 -35 35 a 35 35 0 0 1 -35 -35 a 35 35 0 0 1 30 -34 a 28 28 0 0 1 25 28 a 28 28 0 0 1 -28 28 a 28 28 0 0 1 -28 -28 a 28 28 0 0 1 22 -22 a 20 20 0 0 1 18 20 a 20 20 0 0 1 -20 20 a 20 20 0 0 1 -20 -20 a 20 20 0 0 1 15 -14 a 12 12 0 0 1 11 12 a 12 12 0 0 1 -12 12 a 12 12 0 0 1 -12 -12 a 12 12 0 0 1 8 -8 a 5 5 0 0 1 4 5" 
+              stroke="currentColor" 
+              strokeWidth="7" 
+              strokeLinecap="round" 
+            />
+          </svg>
           A PINE Z
         </h1>
 
-        {/* 드롭다운 뉴스레터 입력창 (호버 시 나타남) */}
+        {/* 호버 시 나타나는 드롭다운 메뉴 (이메일 구독 입력창) */}
         <div 
           className="dropdown-menu"
           style={{
-            marginTop: "10px",
+            marginTop: "16px",
             width: "100%",
             maxWidth: "420px",
             padding: "0 20px",
@@ -176,7 +185,6 @@ export default function Home() {
             pointerEvents: isOpen ? "auto" : "none",
           }}
         >
-          {/* (구독 성공 메시지 및 폼은 그대로 유지) */}
           {subscribed ? (
             <div style={{ textAlign: "center", padding: "10px", fontSize: "14px", fontWeight: 600, color: "#10B981" }}>
               ✓ 성공적으로 구독되었습니다! 최신 소식을 보내드릴게요.
@@ -193,7 +201,7 @@ export default function Home() {
                 required
                 style={{
                   flex: 1,
-                  padding: "8px 16px", // 입력창 높이 살짝 줄임
+                  padding: "10px 16px",
                   fontSize: "14px",
                   borderRadius: "20px",
                   border: "1px solid #d1d5db",
@@ -206,7 +214,7 @@ export default function Home() {
               <button
                 type="submit"
                 style={{
-                  padding: "8px 20px",
+                  padding: "10px 20px",
                   fontSize: "14px",
                   fontWeight: 600,
                   borderRadius: "20px",
