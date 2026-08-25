@@ -96,23 +96,25 @@ export default function Home() {
         }
       `}</style>
 
-      {/*  상단 고정 바 (더 돌돌 말린 유기적 로고 적용) */}
+      {/*  상단 고정 바 (솔방울 모양 로고 적용) */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1001, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: "block" }}>
+          {/* 솔방울 외곽 테두리 및 겹겹이 층을 이루는 비늘 패턴 */}
           <path 
-            d="M 58 32 
-               L 58 5 
-               C 40 22, 25 33, 28 50 
-               C 31 68, 55 64, 62 50 
-               C 33 20, 53 36, 45 42 
-               C 40 46, 44 54, 52 50 
-               C 23 24, 27 60, 25 20
-               L 31 10" 
+            d="M 50 15 
+               C 35 22, 28 35, 30 50 
+               C 32 68, 42 78, 50 85 
+               C 58 78, 68 68, 70 50 
+               C 72 35, 65 22, 50 15 Z" 
             stroke="#000000" 
-            strokeWidth="5.5" 
+            strokeWidth="5" 
             strokeLinecap="round" 
             strokeLinejoin="round"
           />
+          {/* 솔방울 내부 결 (비늘 레이어들) */}
+          <path d="M 38 35 Q 50 42 62 35" stroke="#000000" strokeWidth="4.5" strokeLinecap="round" fill="none" />
+          <path d="M 33 50 Q 50 58 67 50" stroke="#000000" strokeWidth="4.5" strokeLinecap="round" fill="none" />
+          <path d="M 38 65 Q 50 72 62 65" stroke="#000000" strokeWidth="4.5" strokeLinecap="round" fill="none" />
         </svg>
       </div>
       
