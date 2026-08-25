@@ -96,7 +96,7 @@ export default function Home() {
         }
       `}</style>
 
-      {/*  상단 고정 바 (타원형을 줄이고 정원형 느낌을 살린 로고) */}
+      {/*  상단 고정 바 (라인 간격을 떼어내고 완만하게 펴진 로고) */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1001, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: "block" }}>
           <path 
@@ -105,10 +105,10 @@ export default function Home() {
                C 53 52, 56 42, 51 35 
                C 44 24, 30 30, 32 45 
                C 34 60, 52 66, 62 54 
-               C 70 44, 66 30, 52 25 
-               C 34 20, 22 34, 24 50 
-               C 26 68, 50 78, 68 70 
-               C 78 64, 80 46, 70 34" 
+               C 70 44, 65 28, 52 22 
+               C 32 14, 16 30, 18 48 
+               C 20 68, 48 80, 72 66 
+               C 80 60, 82 42, 72 28" 
             stroke="#000000" 
             strokeWidth="5.5" 
             strokeLinecap="round" 
