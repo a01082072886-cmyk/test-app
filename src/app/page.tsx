@@ -104,9 +104,9 @@ export default function Home() {
         }
       `}</style>
 
-      {/*  상단 고정 바 (짧은 꼬리와 매끄러운 반시계 방향 나이테 로고 적용 완료) */}
+      {/*  상단 고정 바 (완벽한 정렬과 마감이 적용된 최적화된 나이테 로고) */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1001, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: "block" }}>
           <path 
             d="M 68 62 
                L 76 70 
