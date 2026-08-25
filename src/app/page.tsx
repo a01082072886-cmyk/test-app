@@ -104,18 +104,17 @@ export default function Home() {
         }
       `}</style>
 
-      {/*  상단 고정 바 (완벽한 정렬과 마감이 적용된 최적화된 나이테 로고) */}
+      {/*  상단 고정 바 (사진 속 스케치 느낌의 유기적인 곡선 로고 적용) */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1001, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: "block" }}>
           <path 
-            d="M 68 62 
-               L 76 70 
-               A 36 36 0 1 0 78 20 
-               A 27 27 0 1 0 62 64 
-               A 18 18 0 1 0 44 46 
-               A 9 9 0 1 0 52 52" 
+            d="M 68 28 
+               C 74 35, 75 48, 65 58 
+               C 52 70, 30 62, 32 44 
+               C 34 26, 56 24, 66 38 
+               C 72 46, 64 56, 54 52" 
             stroke="#000000" 
-            strokeWidth="5" 
+            strokeWidth="5.5" 
             strokeLinecap="round" 
             strokeLinejoin="round"
           />
