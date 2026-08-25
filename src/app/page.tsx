@@ -96,28 +96,20 @@ export default function Home() {
         }
       `}</style>
 
-      {/*  상단 고정 바 (나루토 나뭇잎 마을 마크 로고 적용) */}
+      {/*  상단 고정 바 (바깥으로 커지는 소용돌이 형태 적용) */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1001, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: "block" }}>
-          {/* 소용돌이 본체 (중앙에서 동글게 말려나오는 형태) */}
           <path 
-            d="M 55 42 
-               C 42 35, 32 45, 38 55 
-               C 44 65, 60 58, 62 45 
-               C 64 30, 42 22, 30 38 
-               C 22 50, 28 72, 48 75" 
+            d="M 50 46 
+               C 45 42, 42 48, 47 52 
+               C 54 58, 62 48, 58 38 
+               C 52 24, 34 26, 28 42 
+               C 22 62, 44 76, 62 70 
+               C 74 65, 80 48, 76 32" 
             stroke="#000000" 
             strokeWidth="5.5" 
             strokeLinecap="round" 
             strokeLinejoin="round"
-          />
-          {/* 오른쪽으로 툭 뻗어 나가는 나뭇잎의 꼬리(줄기) 부분 */}
-          <path 
-            d="M 52 65 
-               L 72 75" 
-            stroke="#000000" 
-            strokeWidth="5.5" 
-            strokeLinecap="round" 
           />
         </svg>
       </div>
