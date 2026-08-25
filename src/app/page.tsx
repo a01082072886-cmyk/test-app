@@ -105,17 +105,16 @@ export default function Home() {
         }
       `}</style>
 
-{/*  상단 고정 바 (나이테 결과 반쪽 하트 실루엣을 정교하게 다듬은 로고) */}
+{/*  상단 고정 바 (시작점에서 부드럽게 이어지는 반시계 방향 나선형 나이테 로고) */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1001, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path 
             d="M 74 66 
                L 86 78 
-               A 36 36 0 1 0 84 14 
-               A 27 27 0 1 0 68 70 
-               A 18 18 0 1 0 38 48 
-               A 10 10 0 1 0 48 38 
-               A 4 4 0 1 0 50 48" 
+               A 36 36 0 1 0 78 20 
+               A 27 27 0 1 0 62 64 
+               A 18 18 0 1 0 44 46 
+               A 9 9 0 1 0 52 52" 
             stroke="#000000" 
             strokeWidth="5" 
             strokeLinecap="round" 
