@@ -100,7 +100,7 @@ export default function Home() {
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1001, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: "block" }}>
           <path 
-            d="M 25 20 
+            d="M 60 30 
                C 44 38, 41 46, 47 49 
                C 53 52, 56 42, 51 35 
                C 44 24, 30 30, 32 45 
