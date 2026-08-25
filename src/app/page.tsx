@@ -138,7 +138,8 @@ export default function Home() {
             fontSize: "32px", 
             fontWeight: 600, 
             letterSpacing: "-1px", 
-            color: "#000000", 
+            // 👈 핵심: 스크롤을 내렸거나(isScrolled) 메뉴가 열렸으면(isOpen) 검은색, 맨 위에 있을 때는 흰색!
+            color: isScrolled || isOpen ? "#000000" : "#ffffff", 
             textAlign: "center",
             userSelect: "none",
             cursor: "pointer",
