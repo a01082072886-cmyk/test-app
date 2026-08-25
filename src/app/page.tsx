@@ -105,8 +105,8 @@ export default function Home() {
         }
       `}</style>
 
-{/*  이 아래에 상단 여백 공간을 넣어주세요! */}
-      <div className="w-full h-12 bg-[#f5f5f7]"></div>
+{/*  상단 고정 바 */}
+<div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1001, borderBottom: "1px solid #e5e7eb" }}></div>
       
       {/* 1번 섹션: 상단 고정 헤더 + 드롭다운 뉴스레터 */}
       <header 
@@ -115,7 +115,7 @@ export default function Home() {
         onMouseLeave={() => setIsHovered(false)}
         style={{ 
           position: "fixed", 
-          top: 0, 
+          top: "48px", // 👈 이 부분을 기존 top: 0 에서 top: "48px"로 변경!
           left: 0,
           right: 0,
           zIndex: 1000, 
@@ -218,7 +218,7 @@ export default function Home() {
       </header>
 
       {/* 2번 섹션: 로컬 비디오 루프 적용 */}
-      <section style={{ position: "relative", overflow: "hidden", height: "500px", width: "100%", backgroundColor: "#000000" }}>
+      <section style={{ position: "relative", overflow: "hidden", height: "500px", width: "100%", backgroundColor: "#000000", marginTop: "120px" }}>
         <video
           autoPlay
           loop
