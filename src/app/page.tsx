@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
-  const [isFocused, setIsFocused] = useState(false); // 입력창 포커스 상태 추가
+  const [isFocused, setIsFocused] = useState(false);
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
@@ -49,13 +49,10 @@ export default function Home() {
     }
   };
 
-  // 메뉴가 보여야 하는 조건: 호버 중이거나, 입력창에 포커스가 맞춰져 있을 때
   const isOpen = isHovered || isFocused;
 
   return (
     <div style={{ minHeight: "100vh", backgroundColor: "#ffffff", color: "#000000", fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", width: "100%", margin: 0, padding: 0 }}>
-      {/* 기본 전역 스타일 및 구글 폰트(Inter) 불러오기 */}
-      
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap');
 
@@ -68,29 +65,24 @@ export default function Home() {
           overflow-x: hidden;
         }
 
-        /* 1번 섹션 헤더 트랜지션 효과 */
         .sticky-header {
           transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
         }
 
-        /* 호버 드롭다운 트랜지션 */
         .dropdown-menu {
           transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
         }
 
-        /* 글래스 카드 기본 및 호버 스타일 */
         .glass-card {
           transition: transform 0.3s ease, background-color 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
         }
 
-        /* 평소 상태: 아이콘 숨김 */
         .glass-card .icon-wrapper {
           opacity: 0;
           transform: scale(0.85);
           transition: opacity 0.35s ease, transform 0.35s ease;
         }
 
-        /* 호버 상태: 어두운 글래스모피즘으로 변하며 아이콘 출현 */
         .glass-card:hover {
           transform: translateY(-6px);
           background-color: rgba(0, 0, 0, 0.45) !important;
@@ -104,15 +96,17 @@ export default function Home() {
         }
       `}</style>
 
-      {/*  상단 고정 바 (사진 속 스케치 느낌의 유기적인 곡선 로고 적용) */}
+      {/*  상단 고정 바 (새로운 스케치 형태의 유기적 로고 적용) */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1001, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: "block" }}>
           <path 
-            d="M 68 28 
-               C 74 35, 75 48, 65 58 
-               C 52 70, 30 62, 32 44 
-               C 34 26, 56 24, 66 38 
-               C 72 46, 64 56, 54 52" 
+            d="M 58 33 
+               L 58 25 
+               C 42 24, 27 34, 30 50 
+               C 33 66, 54 62, 60 52 
+               C 65 44, 52 38, 47 43 
+               C 44 46, 48 51, 53 49 
+               L 61 58" 
             stroke="#000000" 
             strokeWidth="5.5" 
             strokeLinecap="round" 
@@ -161,7 +155,6 @@ export default function Home() {
           A PINE Z
         </h1>
 
-        {/* 호버 시 나타나는 드롭다운 메뉴 (이메일 구독 입력창) */}
         <div 
           className="dropdown-menu"
           style={{
@@ -224,7 +217,7 @@ export default function Home() {
         </div>
       </header>
 
-      {/* 2번 섹션: 로컬 비디오 루프 적용 */}
+      {/* 2번 섹션: 로컬 비디오 루프 */}
       <section style={{ position: "relative", overflow: "hidden", height: "550px", width: "100%", backgroundColor: "#000000", marginTop: "0" }}>
         <video
           autoPlay
@@ -244,7 +237,7 @@ export default function Home() {
         </video>
       </section>
 
-      {/* 3번 섹션: 쇼피파이에 COMING SOON 적용 */}
+      {/* 3번 섹션 */}
       <section style={{ 
         display: "grid", 
         gridTemplateColumns: "repeat(4, 1fr)", 
@@ -352,7 +345,7 @@ export default function Home() {
         })}
       </section>
 
-      {/* 4번 섹션: 하단 바 */}
+      {/* 4번 섹션 */}
       <footer style={{ backgroundColor: "#ffffff", padding: "40px 20px 30px", textAlign: "center", fontSize: "0.875rem", color: "#000000", width: "100%" }}>
         <div style={{ 
           fontFamily: "'Inter', sans-serif", 
