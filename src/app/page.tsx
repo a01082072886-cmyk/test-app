@@ -105,13 +105,13 @@ export default function Home() {
         }
       `}</style>
 
-{/*  상단 고정 바 (손글씨 소용돌이 'a' 스타일 로고) */}
+{/*  상단 고정 바 (정교한 나이테 소용돌이 'a' 스타일 로고, 1.5배 확대) */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1001, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <svg width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path 
-            d="M 65 58 C 65 66 58 72 48 72 C 36 72 26 62 26 48 C 26 34 37 24 50 24 C 63 24 72 35 72 48 C 72 58 66 68 56 74 C 48 79 38 80 32 78 C 24 75 20 68 22 58 C 24 45 35 32 50 32 C 60 32 66 40 66 48 C 66 53 62 58 55 58 C 50 58 46 54 46 48" 
+            d="M 68 52 C 68 62 59 72 47 72 C 34 72 24 60 24 47 C 24 33 36 22 50 22 C 64 22 74 33 74 48 C 74 58 67 68 57 74 C 48 80 35 81 27 77 C 21 74 18 67 20 58 C 23 44 35 28 51 28 C 61 28 68 36 68 47 C 68 54 62 60 55 60 C 49 60 44 55 44 48" 
             stroke="#000000" 
-            strokeWidth="7.5" 
+            strokeWidth="6.5" 
             strokeLinecap="round" 
             strokeLinejoin="round"
           />
