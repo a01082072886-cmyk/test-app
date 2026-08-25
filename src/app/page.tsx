@@ -108,65 +108,65 @@ export default function Home() {
 {/*  상단 고정 바 */}
 <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1001, borderBottom: "1px solid #e5e7eb" }}></div>
       
-      {/* 1번 섹션: 상단 고정 헤더 + 드롭다운 뉴스레터 */}
+      {/* 1번 섹션: 상단 고정 헤더 + 드롭다운 뉴스레터 (위치 및 구조 수정) */}
       <header 
         className="sticky-header"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         style={{ 
           position: "fixed", 
-          top: "48px", // 👈 이 부분을 기존 top: 0 에서 top: "48px"로 변경!
+          top: "0", // 헤더가 화면 맨 위에 딱 붙도록 수정
           left: 0,
           right: 0,
           zIndex: 1000, 
           display: "flex", 
           flexDirection: "column",
           alignItems: "center", 
-          padding: "20px 0", 
+          // 상단 여백을 줄여 로고가 바에 딱 붙도록 함
+          paddingTop: "10px",
+          paddingBottom: "10px", 
           width: "100%",
-          backgroundColor: isScrolled || isOpen ? "rgba(255, 255, 255, 0.95)" : "transparent",
-          backdropFilter: isScrolled || isOpen ? "blur(12px)" : "none",
-          WebkitBackdropFilter: isScrolled || isOpen ? "blur(12px)" : "none",
-          borderBottom: isScrolled || isOpen ? "1px solid #e5e7eb" : "1px solid transparent",
+          // 맨 위에 고정되었으므로 항상 흰색 배경과 테두리를 유지
+          backgroundColor: "rgba(255, 255, 255, 1)", 
+          backdropFilter: "none",
+          WebkitBackdropFilter: "none",
+          borderBottom: "1px solid #e5e7eb",
         }}
       >
+        {/* 🌲 [이동 완료] 나이테 로고 SVG를 헤더 안쪽 맨 위로 이동시켰습니다! */}
+        <svg width="30" height="30" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ color: "#000000", marginBottom: "4px" }}>
+          <path 
+            d="M 50 50 m 0 -35 a 35 35 0 0 1 35 35 a 35 35 0 0 1 -35 35 a 35 35 0 0 1 -35 -35 a 35 35 0 0 1 30 -34 a 28 28 0 0 1 25 28 a 28 28 0 0 1 -28 28 a 28 28 0 0 1 -28 -28 a 28 28 0 0 1 22 -22 a 20 20 0 0 1 18 20 a 20 20 0 0 1 -20 20 a 20 20 0 0 1 -20 -20 a 20 20 0 0 1 15 -14 a 12 12 0 0 1 11 12 a 12 12 0 0 1 -12 12 a 12 12 0 0 1 -12 -12 a 12 12 0 0 1 8 -8 a 5 5 0 0 1 4 5" 
+            stroke="currentColor" 
+            strokeWidth="7" 
+            strokeLinecap="round" 
+          />
+        </svg>
+
+        {/* 📝 [수정 완료] 'A PINE Z' 글자는 로고 아래에 깔끔하게 배치됩니다. */}
         <h1 
           onClick={() => setIsHovered(!isHovered)}
           style={{ 
-            display: "flex",
-            flexDirection: "column", // 👈 세로 정렬로 변경하여 로고가 위, 글자가 아래로 오게 배치합니다!
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "6px", // 로고와 'A PINE Z' 글자 사이의 간격
             margin: 0, 
             fontFamily: "'Inter', sans-serif", 
-            fontSize: "28px", 
+            fontSize: "24px", // 글자 크기를 살짝 줄여 상단바에 맞춤
             fontWeight: 600, 
             letterSpacing: "-1px", 
-            color: isScrolled || isOpen ? "#000000" : "#ffffff", 
+            color: "#000000", // 상단바 배경이 흰색이므로 글자는 항상 검은색
             textAlign: "center",
             userSelect: "none",
             cursor: "pointer",
             transition: "color 0.4s ease"
           }}
         >
-          {/* 상단 중앙에 위치한 나이테 로고 SVG */}
-          <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ transition: "stroke 0.4s ease" }}>
-            <path 
-              d="M 50 50 m 0 -35 a 35 35 0 0 1 35 35 a 35 35 0 0 1 -35 35 a 35 35 0 0 1 -35 -35 a 35 35 0 0 1 30 -34 a 28 28 0 0 1 25 28 a 28 28 0 0 1 -28 28 a 28 28 0 0 1 -28 -28 a 28 28 0 0 1 22 -22 a 20 20 0 0 1 18 20 a 20 20 0 0 1 -20 20 a 20 20 0 0 1 -20 -20 a 20 20 0 0 1 15 -14 a 12 12 0 0 1 11 12 a 12 12 0 0 1 -12 12 a 12 12 0 0 1 -12 -12 a 12 12 0 0 1 8 -8 a 5 5 0 0 1 4 5" 
-              stroke="currentColor" 
-              strokeWidth="7" 
-              strokeLinecap="round" 
-            />
-          </svg>
           A PINE Z
         </h1>
 
-        {/* 호버 시 나타나는 드롭다운 메뉴 (이메일 구독 입력창) */}
+        {/* 드롭다운 뉴스레터 입력창 (호버 시 나타남) */}
         <div 
           className="dropdown-menu"
           style={{
-            marginTop: "16px",
+            marginTop: "10px",
             width: "100%",
             maxWidth: "420px",
             padding: "0 20px",
@@ -176,14 +176,9 @@ export default function Home() {
             pointerEvents: isOpen ? "auto" : "none",
           }}
         >
+          {/* (구독 성공 메시지 및 폼은 그대로 유지) */}
           {subscribed ? (
-            <div style={{ 
-              textAlign: "center", 
-              padding: "10px", 
-              fontSize: "14px", 
-              fontWeight: 600, 
-              color: "#10B981" 
-            }}>
+            <div style={{ textAlign: "center", padding: "10px", fontSize: "14px", fontWeight: 600, color: "#10B981" }}>
               ✓ 성공적으로 구독되었습니다! 최신 소식을 보내드릴게요.
             </div>
           ) : (
@@ -198,7 +193,7 @@ export default function Home() {
                 required
                 style={{
                   flex: 1,
-                  padding: "10px 16px",
+                  padding: "8px 16px", // 입력창 높이 살짝 줄임
                   fontSize: "14px",
                   borderRadius: "20px",
                   border: "1px solid #d1d5db",
@@ -211,7 +206,7 @@ export default function Home() {
               <button
                 type="submit"
                 style={{
-                  padding: "10px 20px",
+                  padding: "8px 20px",
                   fontSize: "14px",
                   fontWeight: 600,
                   borderRadius: "20px",
