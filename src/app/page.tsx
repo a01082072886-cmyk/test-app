@@ -101,7 +101,7 @@ export default function Home() {
         <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: "block" }}>
           <path 
             d="M 58 32 
-               L 58 15 
+               L 58 5 
                C 40 22, 25 33, 28 50 
                C 31 68, 55 64, 62 50 
                C 66 42, 53 36, 45 42 
