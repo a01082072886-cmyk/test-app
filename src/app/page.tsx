@@ -127,10 +127,10 @@ export default function Home() {
         }
       `}</style>
 
-      {/*  상단 고정 바 (홈으로 이동하는 클릭 가능한 로고 적용) */}
-      <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1001, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      {/*  상단 고정 바 (높이를 36px로 좁고 슬림하게 조정) */}
+      <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "36px", backgroundColor: "#f5f5f7", zIndex: 1001, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <a href="/" style={{ display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none", cursor: "pointer" }}>
-          <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: "block" }}>
+          <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: "block" }}>
             <path
             d="M 60 30 
                C 44 38, 41 46, 47 49 
@@ -149,21 +149,21 @@ export default function Home() {
         </a>
       </div>
       
-      {/* 1번 섹션: 비디오 위로 뜨는 A PINE Z 글자 + 드롭다운 뉴스레터 */}
+      {/* 1번 섹션: 비디오 위로 뜨는 A PINE Z 글자 + 드롭다운 뉴스레터 (상단바 높이에 맞춰 top 위치 36px로 조정) */}
       <header 
         className="sticky-header"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         style={{ 
           position: "fixed", 
-          top: "48px", 
+          top: "36px", 
           left: 0,
           right: 0,
           zIndex: 1000, 
           display: "flex", 
           flexDirection: "column",
           alignItems: "center", 
-          padding: "20px 0", 
+          padding: "16px 0", 
           width: "100%",
           backgroundColor: isScrolled || isOpen ? "rgba(255, 255, 255, 0.95)" : "transparent",
           backdropFilter: isScrolled || isOpen ? "blur(12px)" : "none",
@@ -176,7 +176,7 @@ export default function Home() {
           style={{ 
             margin: 0, 
             fontFamily: "'Inter', sans-serif", 
-            fontSize: "32px", 
+            fontSize: "30px", 
             fontWeight: 600, 
             letterSpacing: "-1px", 
             color: isScrolled || isOpen ? "#000000" : "#ffffff", 
@@ -192,7 +192,7 @@ export default function Home() {
         <div 
           className="dropdown-menu"
           style={{
-            marginTop: "16px",
+            marginTop: "14px",
             width: "100%",
             maxWidth: "420px",
             padding: "0 20px",
