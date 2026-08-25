@@ -107,8 +107,7 @@ export default function Home() {
                C 34 60, 52 66, 62 54 
                C 70 44, 65 28, 52 22 
                C 32 14, 16 30, 18 48 
-               C 20 68, 48 80, 72 58 
-               C 80 60, 82 42, 72 28" 
+               C 20 68, 48 80, 72 60"
             stroke="#000000" 
             strokeWidth="5.5" 
             strokeLinecap="round" 
