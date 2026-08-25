@@ -105,13 +105,19 @@ export default function Home() {
         }
       `}</style>
 
-{/*  상단 고정 바 (맨 처음 나이테 로고, 1.5배 커진 크기) */}
+{/*  상단 고정 바 (우측 하단 바깥 시작점 + 대각선 진입 + 반시계 나이테 + 5px 두께) */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1001, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path 
-            d="M 50 50 m 0 -35 a 35 35 0 0 1 35 35 a 35 35 0 0 1 -35 35 a 35 35 0 0 1 -35 -35 a 35 35 0 0 1 30 -34 a 28 28 0 0 1 25 28 a 28 28 0 0 1 -28 28 a 28 28 0 0 1 -28 -28 a 28 28 0 0 1 22 -22 a 20 20 0 0 1 18 20 a 20 20 0 0 1 -20 20 a 20 20 0 0 1 -20 -20 a 20 20 0 0 1 15 -14 a 12 12 0 0 1 11 12 a 12 12 0 0 1 -12 12 a 12 12 0 0 1 -12 -12 a 12 12 0 0 1 8 -8 a 5 5 0 0 1 4 5" 
+            d="M 72 68 
+               L 85 80 
+               A 35 35 0 1 0 85 15 
+               A 28 28 0 1 0 65 72 
+               A 20 20 0 1 0 35 50 
+               A 12 12 0 1 0 50 38 
+               A 5 5 0 1 0 50 50" 
             stroke="#000000" 
-            strokeWidth="8" 
+            strokeWidth="5" 
             strokeLinecap="round" 
           />
         </svg>
