@@ -134,12 +134,13 @@ export default function Home() {
           onClick={() => setIsHovered(!isHovered)}
           style={{ 
             display: "flex",
+            flexDirection: "column", // 👈 세로 정렬로 변경하여 로고가 위, 글자가 아래로 오게 배치합니다!
             alignItems: "center",
             justifyContent: "center",
-            gap: "10px",
+            gap: "6px", // 로고와 'A PINE Z' 글자 사이의 간격
             margin: 0, 
             fontFamily: "'Inter', sans-serif", 
-            fontSize: "32px", 
+            fontSize: "28px", 
             fontWeight: 600, 
             letterSpacing: "-1px", 
             color: isScrolled || isOpen ? "#000000" : "#ffffff", 
@@ -149,8 +150,8 @@ export default function Home() {
             transition: "color 0.4s ease"
           }}
         >
-          {/* 나이테 로고 SVG */}
-          <svg width="34" height="34" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ transition: "stroke 0.4s ease" }}>
+          {/* 상단 중앙에 위치한 나이테 로고 SVG */}
+          <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ transition: "stroke 0.4s ease" }}>
             <path 
               d="M 50 50 m 0 -35 a 35 35 0 0 1 35 35 a 35 35 0 0 1 -35 35 a 35 35 0 0 1 -35 -35 a 35 35 0 0 1 30 -34 a 28 28 0 0 1 25 28 a 28 28 0 0 1 -28 28 a 28 28 0 0 1 -28 -28 a 28 28 0 0 1 22 -22 a 20 20 0 0 1 18 20 a 20 20 0 0 1 -20 20 a 20 20 0 0 1 -20 -20 a 20 20 0 0 1 15 -14 a 12 12 0 0 1 11 12 a 12 12 0 0 1 -12 12 a 12 12 0 0 1 -12 -12 a 12 12 0 0 1 8 -8 a 5 5 0 0 1 4 5" 
               stroke="currentColor" 
