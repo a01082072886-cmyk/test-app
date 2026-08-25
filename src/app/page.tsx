@@ -105,14 +105,15 @@ export default function Home() {
         }
       `}</style>
 
-{/*  상단 고정 바 (소문자 a 비율로 커진 검은색 나이테 로고) */}
+{/*  상단 고정 바 (손글씨 소용돌이 'a' 스타일 로고) */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1001, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <svg width="30" height="30" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path 
-            d="M 50 15 C 32 15 18 29 18 47 C 18 68 35 85 55 85 C 72 85 85 72 85 55 C 85 38 70 24 53 24 C 40 24 30 34 30 47 C 30 58 39 67 50 67 C 59 67 66 60 66 51 C 66 44 60 38 53 38 C 48 38 44 42 44 47 C 44 51 47 54 51 54" 
+            d="M 65 58 C 65 66 58 72 48 72 C 36 72 26 62 26 48 C 26 34 37 24 50 24 C 63 24 72 35 72 48 C 72 58 66 68 56 74 C 48 79 38 80 32 78 C 24 75 20 68 22 58 C 24 45 35 32 50 32 C 60 32 66 40 66 48 C 66 53 62 58 55 58 C 50 58 46 54 46 48" 
             stroke="#000000" 
-            strokeWidth="8" 
+            strokeWidth="7.5" 
             strokeLinecap="round" 
+            strokeLinejoin="round"
           />
         </svg>
       </div>
