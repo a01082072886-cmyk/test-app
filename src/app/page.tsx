@@ -105,9 +105,8 @@ export default function Home() {
         }
       `}</style>
 
-{/*  상단 고정 바 (여기에 검은색 나이테 로고 배치) */}
+{/*  상단 고정 바 (검은색 나이테 로고는 그대로 유지) */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1001, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        {/* 상단바 중앙에 고정된 검은색 나이테 로고 */}
         <svg width="24" height="24" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path 
             d="M 50 50 m 0 -35 a 35 35 0 0 1 35 35 a 35 35 0 0 1 -35 35 a 35 35 0 0 1 -35 -35 a 35 35 0 0 1 30 -34 a 28 28 0 0 1 25 28 a 28 28 0 0 1 -28 28 a 28 28 0 0 1 -28 -28 a 28 28 0 0 1 22 -22 a 20 20 0 0 1 18 20 a 20 20 0 0 1 -20 20 a 20 20 0 0 1 -20 -20 a 20 20 0 0 1 15 -14 a 12 12 0 0 1 11 12 a 12 12 0 0 1 -12 12 a 12 12 0 0 1 -12 -12 a 12 12 0 0 1 8 -8 a 5 5 0 0 1 4 5" 
@@ -118,14 +117,14 @@ export default function Home() {
         </svg>
       </div>
       
-      {/* 1번 섹션: 비디오 위로 뜨는 A PINE Z 로고 + 드롭다운 뉴스레터 */}
+      {/* 1번 섹션: 비디오 위로 뜨는 A PINE Z 글자 + 드롭다운 뉴스레터 */}
       <header 
         className="sticky-header"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         style={{ 
           position: "fixed", 
-          top: "48px", // 상단바 바로 아래에 위치
+          top: "48px", 
           left: 0,
           right: 0,
           zIndex: 1000, 
@@ -143,10 +142,6 @@ export default function Home() {
         <h1 
           onClick={() => setIsHovered(!isHovered)}
           style={{ 
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "8px",
             margin: 0, 
             fontFamily: "'Inter', sans-serif", 
             fontSize: "32px", 
@@ -159,15 +154,7 @@ export default function Home() {
             transition: "color 0.4s ease"
           }}
         >
-          {/* 비디오 위에서 스크롤에 따라 색상이 바뀌는 나이테 로고 */}
-          <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ transition: "stroke 0.4s ease" }}>
-            <path 
-              d="M 50 50 m 0 -35 a 35 35 0 0 1 35 35 a 35 35 0 0 1 -35 35 a 35 35 0 0 1 -35 -35 a 35 35 0 0 1 30 -34 a 28 28 0 0 1 25 28 a 28 28 0 0 1 -28 28 a 28 28 0 0 1 -28 -28 a 28 28 0 0 1 22 -22 a 20 20 0 0 1 18 20 a 20 20 0 0 1 -20 20 a 20 20 0 0 1 -20 -20 a 20 20 0 0 1 15 -14 a 12 12 0 0 1 11 12 a 12 12 0 0 1 -12 12 a 12 12 0 0 1 -12 -12 a 12 12 0 0 1 8 -8 a 5 5 0 0 1 4 5" 
-              stroke="currentColor" 
-              strokeWidth="7" 
-              strokeLinecap="round" 
-            />
-          </svg>
+          {/* ✂️ A PINE Z 위의 나이테 로고 SVG 코드를 완전히 제거했습니다! */}
           A PINE Z
         </h1>
 
