@@ -1,6 +1,5 @@
 "use client";
 
-
 import { useState, useEffect } from "react";
 
 export default function Home() {
@@ -105,7 +104,7 @@ export default function Home() {
         }
       `}</style>
 
-{/*  상단 고정 바 (시작점 꼬리를 짧게 줄여 원에 가깝게 붙인 나로고) */}
+      {/*  상단 고정 바 (짧은 꼬리와 매끄러운 반시계 방향 나이테 로고 적용 완료) */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1001, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path 
@@ -160,7 +159,6 @@ export default function Home() {
             transition: "color 0.4s ease"
           }}
         >
-          {/* ✂️ A PINE Z 위의 나이테 로고 SVG 코드를 완전히 제거했습니다! */}
           A PINE Z
         </h1>
 
@@ -227,7 +225,7 @@ export default function Home() {
         </div>
       </header>
 
-      {/* 2번 섹션: 로컬 비디오 루프 적용 (위치 수정) */}
+      {/* 2번 섹션: 로컬 비디오 루프 적용 */}
       <section style={{ position: "relative", overflow: "hidden", height: "550px", width: "100%", backgroundColor: "#000000", marginTop: "0" }}>
         <video
           autoPlay
