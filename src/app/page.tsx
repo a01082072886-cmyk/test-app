@@ -1,5 +1,6 @@
 "use client";
 
+
 import { useState, useEffect } from "react";
 
 export default function Home() {
@@ -55,6 +56,7 @@ export default function Home() {
   return (
     <div style={{ minHeight: "100vh", backgroundColor: "#ffffff", color: "#000000", fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", width: "100%", margin: 0, padding: 0 }}>
       {/* 기본 전역 스타일 및 구글 폰트(Inter) 불러오기 */}
+      
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap');
 
@@ -103,6 +105,9 @@ export default function Home() {
         }
       `}</style>
 
+{/*  이 아래에 상단 여백 공간을 넣어주세요! */}
+      <div className="w-full h-12 bg-[#f5f5f7]"></div>
+      
       {/* 1번 섹션: 상단 고정 헤더 + 드롭다운 뉴스레터 */}
       <header 
         className="sticky-header"

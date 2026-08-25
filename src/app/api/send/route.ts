@@ -43,28 +43,18 @@ const serviceAccountAuth = new JWT({
       Date: new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }),
     });
 
-    // 2. Resend 수신 확인 메일 발송 (법적 수신거부 안내 포함)
-    await resend.emails.send({
-      from: 'newsletter@apinez.com',
-      to: email,
-      subject: '[apinez] 뉴스레터 구독 신청이 완료되었습니다.',
-      html: `
-        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-          <h2>뉴스레터 구독 신청이 완료되었습니다!</h2>
-          <p>새로운 소식과 업데이트 사항을 가장 먼저 알려드릴게요.</p>
-          <hr style="margin-top: 30px; border: 0; border-top: 1px solid #eee;" />
-          <footer style="font-size: 12px; color: #888; margin-top: 20px;">
-            <p>본 메일은 수신 동의를 바탕으로 발송된 발신 전용 메일입니다.</p>
-            <p>수신을 원치 않으시면 <a href="https://apinez.com/unsubscribe?email=${encodeURIComponent(email)}" style="color: #666;">[수신 거부 / Unsubscribe]</a>를 클릭해 주세요.</p>
-            <p>© apinez. All rights reserved.</p>
-          </footer>
-        </div>
-      `,
-    });
+    // 1. 구독자에게 보내는 환영 메일
+await resend.emails.send({
+  from: 'newsletter@apinez.com',
+  to: email, // 구독자 이메일
+  subject: 'Apinez 뉴스레터 구독을 환영합니다!',
+  html: `<p>뉴스레터를 구독해주셔서 감사합니다.</p>`,
+});
 
-    return NextResponse.json({ success: true, message: '구독 신청이 완료되었습니다.' });
-  } catch (error) {
-    console.error('구독 처리 오류:', error);
-    return NextResponse.json({ error: '구독 처리 중 오류가 발생했습니다.' }, { status: 500 });
-  }
-}
+// 2. 💡 관리자(회원님)에게 보내는 알림 메일 (이 부분을 추가하세요!)
+await resend.emails.send({
+  from: 'newsletter@apinez.com',
+  to: '본인의_실제_이메일@gmail.com', // 👈 알림을 받을 본인 이메일 주소 입력
+  subject: '[알림] 새로운 구독자가 등록되었습니다!',
+  html: `<p>새로운 구독자 이메일이 등록되었습니다: <b>${email}</b></p>`,
+});
