@@ -105,20 +105,21 @@ export default function Home() {
         }
       `}</style>
 
-{/*  상단 고정 바 (우측 하단 바깥 시작점 + 대각선 진입 + 반시계 나이테 + 5px 두께) */}
+{/*  상단 고정 바 (나이테 결과 반쪽 하트 실루엣을 정교하게 다듬은 로고) */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1001, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path 
-            d="M 72 68 
-               L 85 80 
-               A 35 35 0 1 0 85 15 
-               A 28 28 0 1 0 65 72 
-               A 20 20 0 1 0 35 50 
-               A 12 12 0 1 0 50 38 
-               A 5 5 0 1 0 50 50" 
+            d="M 74 66 
+               L 86 78 
+               A 36 36 0 1 0 84 14 
+               A 27 27 0 1 0 68 70 
+               A 18 18 0 1 0 38 48 
+               A 10 10 0 1 0 48 38 
+               A 4 4 0 1 0 50 48" 
             stroke="#000000" 
             strokeWidth="5" 
             strokeLinecap="round" 
+            strokeLinejoin="round"
           />
         </svg>
       </div>
