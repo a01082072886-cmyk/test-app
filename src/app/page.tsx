@@ -217,8 +217,8 @@ export default function Home() {
         </div>
       </header>
 
-      {/* 2번 섹션: 로컬 비디오 루프 적용 */}
-      <section style={{ position: "relative", overflow: "hidden", height: "500px", width: "100%", backgroundColor: "#000000", marginTop: "120px" }}>
+      {/* 2번 섹션: 로컬 비디오 루프 적용 (위치 수정) */}
+      <section style={{ position: "relative", overflow: "hidden", height: "550px", width: "100%", backgroundColor: "#000000", marginTop: "0" }}>
         <video
           autoPlay
           loop
