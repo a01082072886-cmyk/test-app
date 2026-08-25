@@ -96,17 +96,18 @@ export default function Home() {
         }
       `}</style>
 
-      {/*  상단 고정 바 (새로운 스케치 형태의 유기적 로고 적용) */}
+      {/*  상단 고정 바 (더 돌돌 말린 유기적 로고 적용) */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1001, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: "block" }}>
           <path 
-            d="M 58 33 
-               L 58 25 
-               C 42 24, 27 34, 30 50 
-               C 33 66, 54 62, 60 52 
-               C 65 44, 52 38, 47 43 
-               C 44 46, 48 51, 53 49 
-               L 61 58" 
+            d="M 58 32 
+               L 58 24 
+               C 40 22, 25 33, 28 50 
+               C 31 68, 55 64, 62 50 
+               C 66 42, 53 36, 45 42 
+               C 40 46, 44 54, 52 50 
+               C 56 48, 55 42, 49 43
+               L 62 59" 
             stroke="#000000" 
             strokeWidth="5.5" 
             strokeLinecap="round" 
