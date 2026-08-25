@@ -13,11 +13,11 @@ export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
 
-  // 슬라이더에 들어갈 아이템들 (0번: 비디오, 1번: 첫 번째 아트웍, 2번: 두 번째 아트웍)
+  // 슬라이더에 들어갈 아이템들 (실제 파일 확장자 대소문자에 맞춤)
   const slides = [
     { type: "video", src: "/forest.mp4" },
     { type: "image", src: "/artwork1.jpg" },
-    { type: "image", src: "/artwork2.jpg" },
+    { type: "image", src: "/artwork2.jpeg" },
   ];
 
   useEffect(() => {
