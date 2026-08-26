@@ -12,6 +12,10 @@ export default function Home() {
   // 햄버거 메뉴(목차) 열림/닫힘 상태 관리
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Contact 모달 열림/닫힘 상태 관리
+  const [isContactOpen, setIsContactOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+
   // 슬라이더 상태 관리
   const [currentIndex, setCurrentIndex] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -60,6 +64,12 @@ export default function Home() {
     } catch (error) {
       console.error("메일 전송 실패:", error);
     }
+  };
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText("joshuakim352@icloud.com");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
   };
 
   const goToSlide = (index: number) => {
@@ -155,6 +165,15 @@ export default function Home() {
         .hamburger-btn.open span:nth-child(2) {
           top: 7px;
           transform: rotate(-45deg);
+        }
+
+        .contact-btn {
+          transition: all 0.2s ease;
+        }
+        .contact-btn:hover {
+          background-color: #000000 !important;
+          color: #ffffff !important;
+          transform: translateY(-2px);
         }
       `}</style>
 
@@ -567,7 +586,135 @@ export default function Home() {
           <a href="https://music.apple.com/kr/album/a-pine-z-single/6789061112" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)} style={{ fontSize: "22px", fontWeight: "600", color: "#555", textDecoration: "none" }}>Apple Music</a>
           <a href="https://www.instagram.com/kimnamhyeun/" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)} style={{ fontSize: "22px", fontWeight: "600", color: "#555", textDecoration: "none" }}>Instagram</a>
           <a href="https://www.youtube.com/@joshua_kimnamhyeon" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)} style={{ fontSize: "22px", fontWeight: "600", color: "#555", textDecoration: "none" }}>YouTube</a>
-          <a href="mailto:contact@apinez.com" onClick={() => setIsMenuOpen(false)} style={{ fontSize: "22px", fontWeight: "600", color: "#555", textDecoration: "none" }}>Contact</a>
+          
+          {/* Contact 클릭 시 목차를 닫고 Contact 모달을 띄움 */}
+          <button
+            onClick={() => {
+              setIsMenuOpen(false);
+              setIsContactOpen(true);
+            }}
+            style={{
+              background: "none",
+              border: "none",
+              fontSize: "22px",
+              fontWeight: "600",
+              color: "#555",
+              cursor: "pointer",
+              fontFamily: "inherit",
+              padding: 0
+            }}
+          >
+            Contact
+          </button>
+        </div>
+      )}
+
+      {/* 6. Contact 깔끔한 팝업 모달 창 */}
+      {isContactOpen && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(0, 0, 0, 0.4)",
+            backdropFilter: "blur(8px)",
+            WebkitBackdropFilter: "blur(8px)",
+            zIndex: 2000,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "20px",
+          }}
+          onClick={() => setIsContactOpen(false)}
+        >
+          <div
+            style={{
+              backgroundColor: "#ffffff",
+              borderRadius: "24px",
+              padding: "40px 32px",
+              width: "100%",
+              maxWidth: "400px",
+              boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              position: "relative",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* 닫기 버튼 (X) */}
+            <button
+              onClick={() => setIsContactOpen(false)}
+              style={{
+                position: "absolute",
+                top: "20px",
+                right: "20px",
+                background: "none",
+                border: "none",
+                fontSize: "18px",
+                cursor: "pointer",
+                color: "#666",
+              }}
+            >
+              ✕
+            </button>
+
+            <h3 style={{ margin: "0 0 8px 0", fontSize: "22px", fontWeight: 700, letterSpacing: "-0.5px" }}>Get in Touch</h3>
+            <p style={{ margin: "0 0 28px 0", fontSize: "14px", color: "#666", textAlign: "center" }}>
+              궁금한 점이나 협업 제안은 아래 채널을 이용해 주세요.
+            </p>
+
+            {/* 이메일 복사 버튼 */}
+            <div
+              onClick={handleCopyEmail}
+              className="contact-btn"
+              style={{
+                width: "100%",
+                padding: "16px",
+                borderRadius: "14px",
+                backgroundColor: "#f5f5f7",
+                border: "1px solid #e5e7eb",
+                cursor: "pointer",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                marginBottom: "12px",
+              }}
+            >
+              <span style={{ fontSize: "12px", fontWeight: 600, color: "#888", marginBottom: "4px" }}>EMAIL</span>
+              <span style={{ fontSize: "15px", fontWeight: 600, color: "#000" }}>joshuakim352@icloud.com</span>
+              {copied && (
+                <span style={{ fontSize: "11px", color: "#10B981", marginTop: "6px", fontWeight: 600 }}>
+                  ✓ 클립보드에 복사되었습니다!
+                </span>
+              )}
+            </div>
+
+            {/* 인스타그램 DM 바로가기 버튼 */}
+            <a
+              href="https://www.instagram.com/kimnamhyeun/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-btn"
+              style={{
+                width: "100%",
+                padding: "16px",
+                borderRadius: "14px",
+                backgroundColor: "#f5f5f7",
+                border: "1px solid #e5e7eb",
+                textDecoration: "none",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                color: "inherit",
+              }}
+            >
+              <span style={{ fontSize: "12px", fontWeight: 600, color: "#888", marginBottom: "4px" }}>INSTAGRAM DM</span>
+              <span style={{ fontSize: "15px", fontWeight: 600, color: "#000" }}>@kimnamhyeun</span>
+            </a>
+          </div>
         </div>
       )}
     </div>
