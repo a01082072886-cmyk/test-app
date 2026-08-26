@@ -125,11 +125,42 @@ export default function Home() {
         .slider-container:hover .slider-arrow {
           opacity: 1;
         }
+
+        /* 햄버거 부드러운 애니메이션 스타일 */
+        .hamburger-btn span {
+          display: block;
+          position: absolute;
+          height: 2px;
+          width: 100%;
+          background: #000;
+          border-radius: 2px;
+          opacity: 1;
+          left: 0;
+          transform: rotate(0deg);
+          transition: .25s ease-in-out;
+        }
+
+        .hamburger-btn span:nth-child(1) {
+          top: 3px;
+        }
+        .hamburger-btn span:nth-child(2) {
+          top: 11px;
+        }
+
+        /* X자로 변할 때의 애니메이션 */
+        .hamburger-btn.open span:nth-child(1) {
+          top: 7px;
+          transform: rotate(45deg);
+        }
+        .hamburger-btn.open span:nth-child(2) {
+          top: 7px;
+          transform: rotate(-45deg);
+        }
       `}</style>
 
-      {/*  상단 고정 바 (로고 크기와 어울리도록 햄버거 버튼 크기 축소) */}
+      {/*  상단 고정 바 */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1002, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 20px" }}>
-        <div style={{ width: "24px" }}></div>
+        <div style={{ width: "20px" }}></div>
 
         <a href="/" style={{ display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none", cursor: "pointer" }}>
           <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: "block" }}>
@@ -143,36 +174,23 @@ export default function Home() {
           </svg>
         </a>
 
-        {/* 우측 상단 햄버거 / X 버튼 (크기를 로고와 조화롭게 줄임) */}
+        {/* 2줄 & 부드러운 애니메이션 햄버거 버튼 */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className={`hamburger-btn ${isMenuOpen ? "open" : ""}`}
           style={{
             background: "none",
             border: "none",
             cursor: "pointer",
-            width: "24px",
-            height: "18px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
+            width: "20px",
+            height: "16px",
+            position: "relative",
             padding: 0,
             zIndex: 1003,
           }}
         >
-          {isMenuOpen ? (
-            // X 모양 아이콘
-            <div style={{ position: "relative", width: "100%", height: "100%" }}>
-              <span style={{ position: "absolute", top: "8px", left: 0, width: "100%", height: "2px", backgroundColor: "#000", transform: "rotate(45deg)" }} />
-              <span style={{ position: "absolute", top: "8px", left: 0, width: "100%", height: "2px", backgroundColor: "#000", transform: "rotate(-45deg)" }} />
-            </div>
-          ) : (
-            // = (햄버거) 모양 아이콘
-            <>
-              <span style={{ width: "100%", height: "2px", backgroundColor: "#000", borderRadius: "2px" }} />
-              <span style={{ width: "100%", height: "2px", backgroundColor: "#000", borderRadius: "2px" }} />
-              <span style={{ width: "100%", height: "2px", backgroundColor: "#000", borderRadius: "2px" }} />
-            </>
-          )}
+          <span></span>
+          <span></span>
         </button>
       </div>
       
@@ -527,7 +545,7 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* 5. 목차 화면 (Admin 제거, Contact 추가 및 링크 연결) */}
+      {/* 5. 목차 화면 */}
       {isMenuOpen && (
         <div
           style={{
