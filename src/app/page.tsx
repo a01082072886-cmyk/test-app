@@ -9,11 +9,13 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
+  // 햄버거 메뉴(목차) 열림/닫힘 상태 관리
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   // 슬라이더 상태 관리
   const [currentIndex, setCurrentIndex] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
 
-  // 슬라이더에 들어갈 아이템들 (실제 파일 확장자 대소문자에 맞춤)
   const slides = [
     { type: "video", src: "/forest.mp4" },
     { type: "image", src: "/artwork1.jpg" },
@@ -60,7 +62,6 @@ export default function Home() {
     }
   };
 
-  // 슬라이드 이동 함수
   const goToSlide = (index: number) => {
     if (index < 0) {
       setCurrentIndex(slides.length - 1);
@@ -74,7 +75,7 @@ export default function Home() {
   const isOpen = isHovered || isFocused;
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#ffffff", color: "#000000", fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", width: "100%", margin: 0, padding: 0 }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "#ffffff", color: "#000000", fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", width: "100%", margin: 0, padding: 0, position: "relative" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&display=swap');
 
@@ -117,7 +118,6 @@ export default function Home() {
           transform: scale(1);
         }
 
-        /* 슬라이더 화살표 스타일 */
         .slider-arrow {
           opacity: 0;
           transition: opacity 0.3s ease, background-color 0.2s ease;
@@ -127,26 +127,54 @@ export default function Home() {
         }
       `}</style>
 
-      {/*  상단 고정 바 (홈으로 이동하는 클릭 가능한 로고 적용) */}
-      <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1001, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      {/*  상단 고정 바 (가운데 로고 + 우측 끝에 햄버거/X 버튼 배치) */}
+      <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1002, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 20px" }}>
+        {/* 왼쪽 여백 맞춤용 빈 공간 혹은 홈 로고 */}
+        <div style={{ width: "30px" }}></div>
+
         <a href="/" style={{ display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none", cursor: "pointer" }}>
           <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: "block" }}>
             <path
-            d="M 60 30 
-               C 44 38, 41 46, 47 49 
-               C 53 52, 56 42, 51 35 
-               C 44 24, 30 30, 32 45 
-               C 34 60, 52 66, 62 54 
-               C 70 44, 65 28, 52 22 
-               C 32 14, 16 30, 18 48 
-               C 20 68, 48 80, 72 60"
-            stroke="#000000" 
+              d="M 60 30 C 44 38, 41 46, 47 49 C 53 52, 56 42, 51 35 C 44 24, 30 30, 32 45 C 34 60, 52 66, 62 54 C 70 44, 65 28, 52 22 C 32 14, 16 30, 18 48 C 20 68, 48 80, 72 60"
+              stroke="#000000" 
               strokeWidth="5.5" 
               strokeLinecap="round" 
               strokeLinejoin="round"
             />
           </svg>
         </a>
+
+        {/* 우측 상단 햄버거 / X 버튼 */}
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          style={{
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            width: "30px",
+            height: "22px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            padding: 0,
+            zIndex: 1003,
+          }}
+        >
+          {isMenuOpen ? (
+            // X 모양 아이콘
+            <div style={{ position: "relative", width: "100%", height: "100%" }}>
+              <span style={{ position: "absolute", top: "10px", left: 0, width: "100%", height: "2px", backgroundColor: "#000", transform: "rotate(45deg)" }} />
+              <span style={{ position: "absolute", top: "10px", left: 0, width: "100%", height: "2px", backgroundColor: "#000", transform: "rotate(-45deg)" }} />
+            </div>
+          ) : (
+            // = (햄버거) 모양 아이콘
+            <>
+              <span style={{ width: "100%", height: "2px", backgroundColor: "#000", borderRadius: "2px" }} />
+              <span style={{ width: "100%", height: "2px", backgroundColor: "#000", borderRadius: "2px" }} />
+              <span style={{ width: "100%", height: "2px", backgroundColor: "#000", borderRadius: "2px" }} />
+            </>
+          )}
+        </button>
       </div>
       
       {/* 1번 섹션: 비디오 위로 뜨는 A PINE Z 글자 + 드롭다운 뉴스레터 */}
@@ -254,9 +282,8 @@ export default function Home() {
       {/* 2번 섹션: 비디오 및 아트웍 이미지 슬라이더 섹션 */}
       <section 
         className="slider-container"
-        style={{ position: "relative", overflow: "hidden", height: "550px", width: "100%", backgroundColor: "#000000", marginTop: "0" }}
+        style={{ position: "relative", overflow: "hidden", height: "550px", width: "100%", backgroundColor: "#000000", marginTop: "48px" }}
       >
-        {/* 슬라이드 트랙 */}
         <div 
           style={{
             display: "flex",
@@ -301,7 +328,6 @@ export default function Home() {
           ))}
         </div>
 
-        {/* 좌측 화살표 버튼 */}
         <button
           className="slider-arrow"
           onClick={() => goToSlide(currentIndex - 1)}
@@ -328,7 +354,6 @@ export default function Home() {
           ❮
         </button>
 
-        {/* 우측 화살표 버튼 */}
         <button
           className="slider-arrow"
           onClick={() => goToSlide(currentIndex + 1)}
@@ -355,7 +380,6 @@ export default function Home() {
           ❯
         </button>
 
-        {/* 하단 인디케이터 (점) */}
         <div style={{ position: "absolute", bottom: "20px", left: "50%", transform: "translateX(-50%)", display: "flex", gap: "8px", zIndex: 10 }}>
           {slides.map((_, index) => (
             <button
@@ -483,7 +507,8 @@ export default function Home() {
           );
         })}
       </section>
-{/* 4번 섹션 (푸터) */}
+
+      {/* 4번 섹션 (푸터) */}
       <footer style={{ backgroundColor: "#ffffff", padding: "40px 20px 30px", textAlign: "center", fontSize: "0.875rem", color: "#000000", width: "100%" }}>
         <div style={{ 
           fontFamily: "'Inter', sans-serif", 
@@ -502,6 +527,32 @@ export default function Home() {
           <a href="/accessibility" style={{ color: "inherit", textDecoration: "none" }}>접근성</a>
         </div>
       </footer>
+
+      {/* 5. 목차 화면 (isMenuOpen이 true일 때 전체 화면으로 오버레이됨) */}
+      {isMenuOpen && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(255, 255, 255, 0.98)",
+            zIndex: 1001, // 최상단 바보다 아래이면서 컨텐츠보다는 위
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "28px",
+          }}
+        >
+          <a href="/" onClick={() => setIsMenuOpen(false)} style={{ fontSize: "28px", fontWeight: "bold", color: "#000", textDecoration: "none" }}>Home</a>
+          <a href="/admin" onClick={() => setIsMenuOpen(false)} style={{ fontSize: "28px", fontWeight: "bold", color: "#000", textDecoration: "none" }}>Admin Dashboard</a>
+          <a href="https://music.apple.com/kr/album/a-pine-z-single/6789061112" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)} style={{ fontSize: "22px", fontWeight: "600", color: "#555", textDecoration: "none" }}>Apple Music</a>
+          <a href="https://www.instagram.com/kimnamhyeun/" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)} style={{ fontSize: "22px", fontWeight: "600", color: "#555", textDecoration: "none" }}>Instagram</a>
+          <a href="https://www.youtube.com/@joshua_kimnamhyeon" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)} style={{ fontSize: "22px", fontWeight: "600", color: "#555", textDecoration: "none" }}>YouTube</a>
+        </div>
+      )}
     </div>
-  ); 
+  );
 }
