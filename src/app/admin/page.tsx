@@ -1,4 +1,4 @@
-"client"; // 클라이언트 컴포넌트 선언
+"use client"; // 👉 "client"를 "use client"로 수정해야 합니다!
 
 import { useState } from "react";
 
@@ -10,12 +10,10 @@ export default function AdminPage() {
 
     setLoading(true);
     try {
-      // 만든 API 호출
       const response = await fetch("/api/send-news", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          // 테스트용 이메일 배열 (나중에 구글 시트 데이터로 연결하면 됩니다!)
           emails: ["test1@example.com", "test2@example.com"],
           message: "사이트가 새롭게 업데이트되었습니다!",
         }),
