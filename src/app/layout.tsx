@@ -1,7 +1,7 @@
 import Script from "next/script";
-import { useState, useEffect } from "react";
+import { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "A PINE Z",
   description: "A PINE Z Website",
 };
@@ -34,14 +34,16 @@ export default function RootLayout({
       </head>
       <body style={{ margin: 0, padding: 0 }}>
         {children}
-        <CookieBanner />
+        <CookieBannerWrapper />
       </body>
     </html>
   );
 }
 
-// 쿠키 배너 컴포넌트 (파일을 따로 만들 필요 없이 바로 작동합니다)
-function CookieBanner() {
+// 쿠키 동의 배너 컴포넌트
+import { useState, useEffect } from "react";
+
+function CookieBannerWrapper() {
   const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
