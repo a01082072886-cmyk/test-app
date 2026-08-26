@@ -12,7 +12,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Email is required' }, { status: 400 });
     }
 
-    // 1. 구글 시트에 구독자 이메일과 가입 날짜 추가하기
+    // 1. 구글 시트에 이메일과 가입 날짜 추가하기
     try {
       const auth = new google.auth.GoogleAuth({
         credentials: {
@@ -25,70 +25,44 @@ export async function POST(request: Request) {
       const sheets = google.sheets({ version: 'v4', auth });
       const spreadsheetId = process.env.GOOGLE_SHEET_ID;
 
-      // 한국 시간 기준 가입 날짜 생성
       const now = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
 
-      await sheets.spreadsheets.values.append({
+      const response = await sheets.spreadsheets.values.append({
         spreadsheetId,
-        range: 'A:B', // 시트의 A열(이메일), B열(날짜)에 추가
+        range: 'A:B',
         valueInputOption: 'USER_ENTERED',
         requestBody: {
           values: [[email, now]],
         },
       });
-    } catch (sheetError) {
-      console.error('구글 시트 저장 중 오류 발생:', sheetError);
+
+      console.log('✅ 구글 시트 저장 성공:', response.data);
+    } catch (sheetError: any) {
+      console.error('❌ 구글 시트 저장 실패 상세 에러:', sheetError.message || sheetError);
     }
 
-    // 2. Resend 뉴스레터 환영 메일 발송 HTML
+    // 2. Resend 메일 발송
     const htmlContent = `
       <!DOCTYPE html>
       <html>
-        <head>
-          <meta charset="utf-8">
-          <style>
-            body { background-color: #f5f5f7; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 40px 0; color: #000000; }
-            .email-card { max-width: 480px; margin: 0 auto; background-color: #ffffff; border-radius: 24px; padding: 40px; border: 1px solid #e5e7eb; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); text-align: center; }
-            .logo-container { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 24px; }
-            .logo-text { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
-            h1 { font-size: 22px; font-weight: 600; margin-bottom: 12px; letter-spacing: -0.5px; }
-            p { font-size: 14px; color: #666666; line-height: 1.6; margin-bottom: 32px; }
-            .footer { font-size: 12px; color: #999999; border-top: 1px solid #f0f0f0; padding-top: 20px; margin-top: 30px; }
-          </style>
-        </head>
-        <body>
-          <div class="email-card">
-            <div class="logo-container">
-              <svg width="36" height="36" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M 60 30 C 44 38, 41 46, 47 49 C 53 52, 56 42, 51 35 C 44 24, 30 30, 32 45 C 34 60, 52 66, 62 54 C 70 44, 65 28, 52 22 C 32 14, 16 30, 18 48 C 20 68, 48 80, 72 60" stroke="#000000" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              <div class="logo-text">A PINE Z</div>
-            </div>
-            <h1>구독해 주셔서 감사합니다</h1>
-            <p>
-              안녕하세요!<br>
-              A PINE Z의 최신 소식과 아트웍 업데이트를<br>
-              가장 먼저 전해드리겠습니다.
-            </p>
-            <div class="footer">
-              © A PINE Z. All rights reserved.
-            </div>
-          </div>
+        <head><meta charset="utf-8"></head>
+        <body style="font-family: sans-serif; text-align: center; padding: 40px;">
+          <h2>구독해 주셔서 감사합니다!</h2>
+          <p>A PINE Z의 최신 소식을 전해드리겠습니다.</p>
         </body>
       </html>
     `;
 
-    // 3. Resend를 통해 환영 메일 발송 (발신자 주소에 본인 인증 메일 입력)
-    const data = await resend.emails.send({
-      from: 'A PINE Z <본인의_인증된_개인메일주소>', // 👉 Gravatar 인증한 본인 개인 메일 주소 입력
+    await resend.emails.send({
+      from: 'onboarding@resend.dev', // 👉 Resend가 제공하는 테스트 전용 발신자 주소
       to: [email],
       subject: '[A PINE Z] 뉴스레터 구독이 완료되었습니다.',
       html: htmlContent,
     });
 
-    return NextResponse.json({ success: true, data }, { status: 200 });
+    return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
-    console.error('구독 처리 및 메일 전송 오류:', error);
-    return NextResponse.json({ error: 'Failed to process subscription' }, { status: 500 });
+    console.error('전체 API 에러:', error);
+    return NextResponse.json({ error: 'Failed to process' }, { status: 500 });
   }
 }
