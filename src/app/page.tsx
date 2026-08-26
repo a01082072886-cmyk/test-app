@@ -484,25 +484,6 @@ export default function Home() {
         })}
       </section>
 
-      {/* 4번 섹션 */}
-      <footer style={{ backgroundColor: "#ffffff", padding: "40px 20px 30px", textAlign: "center", fontSize: "0.875rem", color: "#000000", width: "100%" }}>
-        <div style={{ 
-          fontFamily: "'Inter', sans-serif", 
-          fontSize: "20px", 
-          fontWeight: 600, 
-          letterSpacing: "2px", 
-          marginBottom: "20px",
-          color: "#000000"
-        }}>
-          24/7
-        </div>
-
-        <div style={{ display: "flex", justifyContent: "center", gap: "28px", fontWeight: "600" }}>
-          <a href="/cookie" style={{ color: "inherit", textDecoration: "none" }}>쿠키 정책</a>
-          <a href="/privacy" style={{ color: "inherit", textDecoration: "none" }}>개인 정보 처리 방침</a>
-          <a href="/accessibility" style={{ color: "inherit", textDecoration: "none" }}>접근성</a>
-        </div>
-      </footer>
     </div>
   ); 
 }
