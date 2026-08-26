@@ -4,10 +4,14 @@ export default function PrivacyPolicy() {
       <h1 style={{ fontSize: "28px", fontWeight: "bold", marginBottom: "20px" }}>개인정보 처리방침</h1>
       <p style={{ color: "#666", fontSize: "14px", marginBottom: "30px" }}>최종 수정일: 2026년 7월 27일</p>
 
-      <section style={{ marginBottom: "24px" }}>
-        <h2 style={{ fontSize: "18px", fontWeight: "600", marginBottom: "8px" }}>1. 개인정보의 수집 및 이용 목적</h2>
-        <p>A PINE Z(이하 '본 사이트')는 별도의 회원가입 없이 콘텐츠를 이용할 수 있는 단순 안내/홍보용 웹사이트입니다. 본 사이트는 이용자의 개인정보를 직접 수집하거나 저장하지 않습니다.</p>
-      </section>
+      <section style={{ marginBottom: "40px" }}>
+  <h2 style={{ fontSize: "1.25rem", fontWeight: "bold", marginBottom: "15px" }}>
+    1. 개인정보의 수집 및 이용 목적
+  </h2>
+  <p style={{ lineHeight: "1.6", color: "#333" }}>
+    A PINE Z(이하 '본 사이트')는 뉴스레터 구독 서비스 제공을 위해 최소한의 개인정보(이메일 주소)를 수집 및 이용합니다. 수집된 이메일 주소는 원활한 정보 제공 목적 외의 다른 용도로는 사용되지 않습니다.
+  </p>
+</section>
 
       <section style={{ marginBottom: "24px" }}>
         <h2 style={{ fontSize: "18px", fontWeight: "600", marginBottom: "8px" }}>2. 쿠키(Cookie) 및 자동 수집 장치의 운영</h2>
