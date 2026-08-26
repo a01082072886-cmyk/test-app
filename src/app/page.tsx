@@ -127,10 +127,9 @@ export default function Home() {
         }
       `}</style>
 
-      {/*  상단 고정 바 (가운데 로고 + 우측 끝에 햄버거/X 버튼 배치) */}
+      {/*  상단 고정 바 (로고 크기와 어울리도록 햄버거 버튼 크기 축소) */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, height: "48px", backgroundColor: "#f5f5f7", zIndex: 1002, borderBottom: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 20px" }}>
-        {/* 왼쪽 여백 맞춤용 빈 공간 혹은 홈 로고 */}
-        <div style={{ width: "30px" }}></div>
+        <div style={{ width: "24px" }}></div>
 
         <a href="/" style={{ display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none", cursor: "pointer" }}>
           <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: "block" }}>
@@ -144,15 +143,15 @@ export default function Home() {
           </svg>
         </a>
 
-        {/* 우측 상단 햄버거 / X 버튼 */}
+        {/* 우측 상단 햄버거 / X 버튼 (크기를 로고와 조화롭게 줄임) */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           style={{
             background: "none",
             border: "none",
             cursor: "pointer",
-            width: "30px",
-            height: "22px",
+            width: "24px",
+            height: "18px",
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
@@ -163,8 +162,8 @@ export default function Home() {
           {isMenuOpen ? (
             // X 모양 아이콘
             <div style={{ position: "relative", width: "100%", height: "100%" }}>
-              <span style={{ position: "absolute", top: "10px", left: 0, width: "100%", height: "2px", backgroundColor: "#000", transform: "rotate(45deg)" }} />
-              <span style={{ position: "absolute", top: "10px", left: 0, width: "100%", height: "2px", backgroundColor: "#000", transform: "rotate(-45deg)" }} />
+              <span style={{ position: "absolute", top: "8px", left: 0, width: "100%", height: "2px", backgroundColor: "#000", transform: "rotate(45deg)" }} />
+              <span style={{ position: "absolute", top: "8px", left: 0, width: "100%", height: "2px", backgroundColor: "#000", transform: "rotate(-45deg)" }} />
             </div>
           ) : (
             // = (햄버거) 모양 아이콘
@@ -528,7 +527,7 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* 5. 목차 화면 (isMenuOpen이 true일 때 전체 화면으로 오버레이됨) */}
+      {/* 5. 목차 화면 (Admin 제거, Contact 추가 및 링크 연결) */}
       {isMenuOpen && (
         <div
           style={{
@@ -538,7 +537,7 @@ export default function Home() {
             width: "100vw",
             height: "100vh",
             backgroundColor: "rgba(255, 255, 255, 0.98)",
-            zIndex: 1001, // 최상단 바보다 아래이면서 컨텐츠보다는 위
+            zIndex: 1001,
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
@@ -547,10 +546,10 @@ export default function Home() {
           }}
         >
           <a href="/" onClick={() => setIsMenuOpen(false)} style={{ fontSize: "28px", fontWeight: "bold", color: "#000", textDecoration: "none" }}>Home</a>
-          <a href="/admin" onClick={() => setIsMenuOpen(false)} style={{ fontSize: "28px", fontWeight: "bold", color: "#000", textDecoration: "none" }}>Admin Dashboard</a>
           <a href="https://music.apple.com/kr/album/a-pine-z-single/6789061112" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)} style={{ fontSize: "22px", fontWeight: "600", color: "#555", textDecoration: "none" }}>Apple Music</a>
           <a href="https://www.instagram.com/kimnamhyeun/" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)} style={{ fontSize: "22px", fontWeight: "600", color: "#555", textDecoration: "none" }}>Instagram</a>
           <a href="https://www.youtube.com/@joshua_kimnamhyeon" target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)} style={{ fontSize: "22px", fontWeight: "600", color: "#555", textDecoration: "none" }}>YouTube</a>
+          <a href="mailto:contact@apinez.com" onClick={() => setIsMenuOpen(false)} style={{ fontSize: "22px", fontWeight: "600", color: "#555", textDecoration: "none" }}>Contact</a>
         </div>
       )}
     </div>
