@@ -94,7 +94,7 @@ export async function POST(request: Request) {
     `;
 
     const data = await resend.emails.send({
-      from: 'A PINE Z <newsletter@apinez.com>',
+      from: 'A PINE Z <joshuakim352@icloud.com>', // 👈 여기에 본인 주소를 넣으세요
       to: [email],
       subject: '[A PINE Z] 뉴스레터 구독이 완료되었습니다.',
       html: htmlContent,
